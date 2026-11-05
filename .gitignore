@@ -1,0 +1,34 @@
+# Dependências
+node_modules/
+
+# Segredos (ADR-0015) — só o exemplo vai para o repositório
+.env
+.env.*
+!.env.example
+
+# Arquivos enviados pelos usuários: materiais e avatares (ADR-0005)
+backend/uploads/
+
+# Build do front
+dist/
+dist-ssr/
+*.local
+
+# Entrega gerada por git archive (ADR-0016)
+*.zip
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Testes
+coverage/
+
+# SO / editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.sw?
