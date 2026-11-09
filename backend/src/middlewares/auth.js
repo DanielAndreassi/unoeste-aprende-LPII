@@ -1,21 +1,20 @@
+import { promisify } from 'node:util';
 import jwt from 'jsonwebtoken';
+import createError from 'http-errors';
 import Usuario from '../models/Usuario.js';
-import HttpError from '../utils/HttpError.js';
+
+const verificarToken = promisify(jwt.verify);
 
 // Valida o Bearer e recarrega o usuário a cada requisição para recusar contas desativadas (ADR-0015).
+// Token inválido/expirado rejeita a promise e o errorHandler responde 401.
 export default async function auth(req, _res, next) {
-  const [tipo, token] = req.headers.authorization?.split(' ') ?? [];
-  if (tipo !== 'Bearer' || !token) throw new HttpError(401, 'Faça login para continuar');
+  const [esquema, token] = req.get('Authorization')?.split(' ') ?? [];
+  if (esquema !== 'Bearer' || !token) throw createError(401, 'Faça login para continuar');
 
-  let payload;
-  try {
-    payload = jwt.verify(token, process.env.JWT_SECRET);
-  } catch {
-    throw new HttpError(401, 'Sessão expirada, faça login novamente');
-  }
+  const { id } = await verificarToken(token, process.env.JWT_SECRET, { algorithms: ['HS256'] });
+  const usuario = await Usuario.findById(id);
+  if (!usuario?.ativo) throw createError(401, 'Usuário inativo ou inexistente');
 
-  const usuario = await Usuario.findById(payload.id);
-  if (!usuario?.ativo) throw new HttpError(401, 'Usuário inativo ou inexistente');
   req.usuario = usuario;
   next();
 }

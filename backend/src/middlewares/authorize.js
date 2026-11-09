@@ -1,9 +1,9 @@
-import HttpError from '../utils/HttpError.js';
+import createError from 'http-errors';
 
-// Uso: router.get('/x', auth, authorize('admin'), ...)
+// Middleware configurável (padrão do guia "Writing middleware"): authorize('admin'), authorize('professor', 'aluno').
 export default function authorize(...roles) {
   return (req, _res, next) => {
-    if (!roles.includes(req.usuario?.role)) throw new HttpError(403, 'Acesso negado');
+    if (!roles.includes(req.usuario.role)) throw createError(403, 'Acesso negado');
     next();
   };
 }

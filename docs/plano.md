@@ -15,7 +15,7 @@ Dupla: **Daniel Andreassi Lopes** e **Henrique Corazza**.
 | Dia | Entrega |
 |---|---|
 | 05/11 | Docs fechados (tema já validado com o professor) |
-| 06/11 | **Juntos (bloqueia o resto)**: docker-compose, `.prettierrc`, **todos os models** (schemas), middlewares `auth`/`authorize`/`vinculoTurma`/`errorHandler`, `HttpError`, seed mínimo, front base (Tailwind, Router, Pinia, Axios, layouts) |
+| 06/11 | **Juntos (bloqueia o resto)**: docker-compose, `.prettierrc`, **todos os models** (schemas), middlewares `auth`/`authorize`/`carregar`/`exigirVinculo`/`errorHandler`, seed mínimo, front base (Tailwind, Router, Pinia, Axios, layouts) |
 | 07–08/11 | A: auth + reset + boas-vindas + guards + perfil · B: CRUD de tópicos/seções/materiais/upload |
 | 09–10/11 | A: admin CRUD · B: progresso + eventos + calendário |
 | 11–12/11 | A: avaliações/notas/média · B: plano de ensino + assistente IA |

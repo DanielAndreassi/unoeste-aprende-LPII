@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
-import HttpError from '../utils/HttpError.js';
+import createError from 'http-errors';
 import { validarSenha } from '../utils/senha.js';
 
 const hashToken = (token) => crypto.createHash('sha256').update(token).digest('hex');
@@ -38,7 +38,7 @@ usuarioSchema.methods.verificarSenha = function (senha) {
 
 usuarioSchema.methods.definirSenha = async function (senha) {
   const erro = validarSenha(senha);
-  if (erro) throw new HttpError(400, erro);
+  if (erro) throw createError(400, erro);
   this.senhaHash = await bcrypt.hash(senha, 10);
   this.resetTokenHash = undefined;
   this.resetTokenExp = undefined;

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Secao from './Secao.js';
 
 const topicoSchema = new mongoose.Schema({
   turma: { type: mongoose.Schema.Types.ObjectId, ref: 'Turma', required: true, immutable: true },
@@ -10,7 +11,7 @@ topicoSchema.index({ turma: 1, ordem: 1 });
 
 // Cascata (ADR-0012): apaga as seções uma a uma para disparar o hook delas.
 topicoSchema.pre('deleteOne', { document: true, query: false }, async function () {
-  const secoes = await mongoose.model('Secao').find({ topico: this._id });
+  const secoes = await Secao.find({ topico: this._id });
   for (const secao of secoes) await secao.deleteOne();
 });
 

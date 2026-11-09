@@ -4,7 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import routes from './routes/index.js';
 import errorHandler from './middlewares/errorHandler.js';
-import HttpError from './utils/HttpError.js';
+import createError from 'http-errors';
 import { UPLOADS_DIR } from './config/uploads.js';
 
 const app = express();
@@ -17,9 +17,8 @@ app.use(express.json());
 // Única pasta pública (ADR-0005); materiais só saem pela rota autenticada de download.
 app.use('/uploads/avatars', express.static(path.join(UPLOADS_DIR, 'avatars')));
 app.use('/api', routes);
-app.use('/api', () => {
-  throw new HttpError(404, 'Rota não encontrada');
-});
+// Nenhuma rota respondeu: 404 no formato da API (o padrão do Express seria HTML)
+app.use('/api', (_req, _res, next) => next(createError(404, 'Rota não encontrada')));
 
 app.use(errorHandler);
 

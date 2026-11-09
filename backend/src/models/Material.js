@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { rm } from 'node:fs/promises';
 import mongoose from 'mongoose';
+import Progresso from './Progresso.js';
 import { UPLOADS_DIR } from '../config/uploads.js';
 
 const exigidoSe = (tipo, msg) => [
@@ -40,7 +41,7 @@ materialSchema.index({ secao: 1, ordem: 1 });
 materialSchema.index({ turma: 1 });
 
 materialSchema.pre('deleteOne', { document: true, query: false }, async function () {
-  await mongoose.model('Progresso').deleteMany({ material: this._id });
+  await Progresso.deleteMany({ material: this._id });
   if (this.arquivo?.caminho)
     await rm(path.join(UPLOADS_DIR, this.arquivo.caminho), { force: true });
 });

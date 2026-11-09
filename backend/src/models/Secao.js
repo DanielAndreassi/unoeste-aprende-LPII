@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Material from './Material.js';
 
 const secaoSchema = new mongoose.Schema({
   topico: { type: mongoose.Schema.Types.ObjectId, ref: 'Topico', required: true, immutable: true },
@@ -11,7 +12,7 @@ secaoSchema.index({ topico: 1, ordem: 1 });
 
 // Cascata (ADR-0012): cada material apaga o próprio progresso e arquivo.
 secaoSchema.pre('deleteOne', { document: true, query: false }, async function () {
-  const materiais = await mongoose.model('Material').find({ secao: this._id });
+  const materiais = await Material.find({ secao: this._id });
   for (const material of materiais) await material.deleteOne();
 });
 

@@ -20,7 +20,8 @@
 ## Backend
 - Stack obrigatória: Node + Express 5 + Mongoose + JavaScript ESM → [ADR-0001](docs/adr/0001-stack-obrigatoria.md)
 - **MVC estrito, sem `services/`**: lógica compartilhada em models (métodos/statics/hooks), `utils/` (funções puras) e `config/` (clientes de e-mail/IA) → [ADR-0014](docs/adr/0014-backend-mvc-erros-validacao.md)
-- Controllers sem try/catch: `HttpError` + `errorHandler` único; validação no schema Mongoose; `turma` duplicado nos sub-recursos + middleware `vinculoTurma` → ADR-0014
+- Controllers sem try/catch: `createError` (`http-errors`) + `errorHandler` único; validação no schema Mongoose → ADR-0014
+- Rotas: `router.use(auth)` após as públicas; `router.param('<x>Id', carregar(Model))`; `exigirVinculo('prof','mat',...)` e `authorize(...roles)`; `router.route()` por caminho → ADR-0014
 - Contrato da API: seguir [docs/api.md](docs/api.md); mudanças atualizam o doc no mesmo PR.
 - Auth: JWT Bearer 8h + bcrypt; reset de senha e boas-vindas por e-mail, guardando só o hash do token → [ADR-0004](docs/adr/0004-autenticacao-jwt.md)
 - Segurança: auth checa `ativo`, helmet, CORS, rate limit, limites de upload; lista de `.env` → [ADR-0015](docs/adr/0015-seguranca.md)
