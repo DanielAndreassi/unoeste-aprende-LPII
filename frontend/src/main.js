@@ -13,5 +13,6 @@ useTemaStore(); // aplica o tema antes de montar, evitando piscar
 app.use(router);
 // Sessão salva: revalida o token e atualiza o usuário (o interceptor trata o 401)
 const auth = useAuthStore();
-if (auth.logado) me().then(auth.atualizarUsuario).catch(() => {});
+if (auth.logado)
+  router.isReady().then(() => me().then(auth.atualizarUsuario).catch(() => {}));
 app.mount('#app');

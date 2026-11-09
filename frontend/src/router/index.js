@@ -9,21 +9,14 @@ const routes = [
     meta: { publica: true },
     children: [
       { path: '', name: 'login', component: () => import('../views/auth/LoginView.vue') },
-    ],
-  },
-  {
-    path: '/',
-    component: () => import('../layouts/AuthLayout.vue'),
-    meta: { publica: true },
-    children: [
       {
-        path: 'esqueci-senha',
+        path: '/esqueci-senha',
         name: 'esqueci-senha',
         component: () => import('../views/auth/EsqueciSenhaView.vue'),
       },
       {
         // aberta mesmo logado: o link do e-mail deve funcionar em qualquer sessão
-        path: 'redefinir-senha',
+        path: '/redefinir-senha',
         name: 'redefinir-senha',
         meta: { aberta: true },
         component: () => import('../views/auth/RedefinirSenhaView.vue'),
