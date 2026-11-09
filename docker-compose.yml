@@ -1,0 +1,42 @@
+# Ambiente de desenvolvimento e da apresentação (ADR-0008).
+services:
+  mongo:
+    image: mongo:8
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    image: node:24-alpine
+    working_dir: /app
+    command: sh -c "npm install && npm run dev"
+    # o resto vem de backend/.env (lido pelo script dev); variáveis daqui têm prioridade
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/unoeste-aprende
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./backend:/app
+      - /app/node_modules # volume anônimo: não mistura binários do macOS com os do Linux
+      - uploads:/app/uploads
+    depends_on:
+      - mongo
+
+  frontend:
+    image: node:24-alpine
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host"
+    environment:
+      VITE_API_URL: http://localhost:3000/api
+    ports:
+      - '5173:5173'
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:
+  uploads:
