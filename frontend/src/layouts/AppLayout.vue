@@ -2,6 +2,7 @@
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
 import { useTemaStore } from '../stores/tema';
+import Avatar from '../components/ui/Avatar.vue';
 
 const auth = useAuthStore();
 const tema = useTemaStore();
@@ -30,8 +31,15 @@ function sair() {
         </span>
 
         <div class="ml-auto flex items-center gap-2">
-          <!-- Sino de notificações e link "Meu perfil" entram aqui (módulos A) -->
-          <span class="hidden text-sm sm:inline">{{ auth.usuario?.nome }}</span>
+          <!-- O sino de notificações entra aqui (13/11) -->
+          <RouterLink
+            :to="{ name: 'perfil' }"
+            class="flex items-center gap-2 rounded-lg px-2 py-1 hover:bg-white/10"
+            aria-label="Meu perfil"
+          >
+            <Avatar :usuario="auth.usuario" tamanho="h-8 w-8" />
+            <span class="hidden text-sm sm:inline">{{ auth.usuario?.nome }}</span>
+          </RouterLink>
           <button
             type="button"
             class="rounded-lg p-2 hover:bg-white/10"

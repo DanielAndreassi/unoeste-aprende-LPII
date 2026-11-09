@@ -23,6 +23,10 @@ export const useAuthStore = defineStore('auth', {
       this.usuario = usuario;
       localStorage.setItem(CHAVE, JSON.stringify({ token, usuario }));
     },
+    atualizarUsuario(usuario) {
+      this.usuario = usuario;
+      localStorage.setItem(CHAVE, JSON.stringify({ token: this.token, usuario }));
+    },
     sair() {
       this.token = null;
       this.usuario = null;
