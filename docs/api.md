@@ -7,12 +7,14 @@ Erros: `{ "erro": "mensagem" }` com status 400/401/403/404/409/500.
 ## Auth e perfil — membro A
 | Método | Rota | Acesso |
 |---|---|---|
-| POST | /auth/login | público (bloqueia `ativo:false`) |
-| POST | /auth/forgot-password | público |
-| POST | /auth/reset-password | público (token; também usado na primeira senha) |
-| GET | /auth/me | auth |
-| PUT | /perfil | auth (nome, avatar) |
-| PUT | /perfil/senha | auth (senha atual + nova) |
+| POST | /auth/login `{ email, senha }` → `{ token, usuario }` | público (401 se credenciais erradas ou `ativo:false`; 10 tentativas/15 min por IP) |
+| POST | /auth/forgot-password `{ email }` | público (sempre 200; mesmo limite do login) |
+| POST | /auth/reset-password `{ token, senha }` | público (token do e-mail, 30 min; também usado na primeira senha; 400 se inválido) |
+| GET | /auth/me → usuário | auth |
+| PUT | /perfil (multipart: `nome`, `avatar` opcional) → usuário | auth (avatar jpg/png/webp ≤ 2 MB; guardado como nome de arquivo, servido em `/uploads/avatars/<arquivo>`) |
+| PUT | /perfil/senha `{ senhaAtual, senhaNova }` | auth (400 se a atual estiver errada) |
+
+Roteiro de requisições: [backend/requests/auth.http](../backend/requests/auth.http).
 
 ## Admin — membro A
 | Método | Rota | Acesso |
