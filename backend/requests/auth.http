@@ -1,0 +1,50 @@
+# Roteiro de demonstração: auth e perfil (extensão REST Client / IntelliJ HTTP).
+# Senha do seed: Senha123. Rode antes: docker compose exec backend npm run seed
+@api = http://localhost:3000/api
+
+### Login (guarde o token e use nas demais requisições)
+# @name login
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{ "email": "aluno1@aprender.local", "senha": "Senha123" }
+
+###
+@token = {{login.response.body.token}}
+
+### Usuário logado
+GET {{api}}/auth/me
+Authorization: Bearer {{token}}
+
+### Sem token → 401
+GET {{api}}/auth/me
+
+### Atualizar nome (multipart; para foto acrescente o campo "avatar" com um arquivo jpg/png/webp ≤ 2 MB)
+PUT {{api}}/perfil
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=x
+
+--x
+Content-Disposition: form-data; name="nome"
+
+Lucas Ferraz
+--x--
+
+### Trocar senha
+PUT {{api}}/perfil/senha
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "senhaAtual": "Senha123", "senhaNova": "Senha1234" }
+
+### Esqueci a senha (sempre 200; o link aparece no console da API quando usa Ethereal)
+POST {{api}}/auth/forgot-password
+Content-Type: application/json
+
+{ "email": "aluno1@aprender.local" }
+
+### Redefinir senha (token do link do e-mail; também usado na primeira senha)
+POST {{api}}/auth/reset-password
+Content-Type: application/json
+
+{ "token": "COLE-O-TOKEN-DO-LINK", "senha": "Senha123" }

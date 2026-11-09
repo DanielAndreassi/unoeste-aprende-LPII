@@ -8,9 +8,9 @@
 | Turma | disciplina→Disciplina, codigo (7A), semestre (2/2026), professores→[Usuario] | Admin |
 | Matricula | aluno→Usuario, turma→Turma (par único) | Admin |
 | Topico | turma, titulo (ex.: "ALUNOS"), ordem | Professor |
-| Secao | topico, titulo, ordem | Professor |
-| Material | secao, titulo, descricao?, tipo (arquivo/link/texto), url \| arquivo{nome, mime, tamanho, caminho} \| conteudo (Markdown), ordem | Professor |
-| Progresso | aluno, material (par único), concluidoEm | Aluno (marca/desmarca) |
+| Secao | topico, turma, titulo, ordem | Professor |
+| Material | secao, turma, titulo, descricao?, tipo (arquivo/link/texto), url \| arquivo{nome, mime, tamanho, caminho} \| conteudo (Markdown), ordem | Professor |
+| Progresso | aluno, material (par único), turma (para contar o % por turma), concluidoEm | Aluno (marca/desmarca) |
 | Evento | turma (null = institucional), titulo, tipo (aula-ao-vivo/atividade/prova/outro), link?, inicio, fim | Professor (turma) · Admin (institucional) |
 | PlanoEnsino | turma (1:1), ementa, objetivos, conteudoProgramatico, avaliacao, bibliografia | Professor |
 | Avaliacao | turma, nome, peso, data | Professor |
@@ -19,6 +19,8 @@
 | Conversa | usuario (aluno ou professor da turma), turma, titulo, mensagens:[{autor (usuario/ia), texto, criadaEm}] | Dono |
 
 Regras de comportamento: [regras-negocio.md](regras-negocio.md)
+
+O campo `turma` em Topico, Secao, Material, Progresso, Avaliacao, Evento e Conversa é duplicado de propósito e imutável ([ADR-0014](adr/0014-backend-mvc-erros-validacao.md)): o `carregar` (via `router.param`) acha a turma e o `exigirVinculo` checa o acesso sem subir a árvore.
 
 Rótulo exibido de uma turma: `<Disciplina.nome> - <codigo> (<semestre>)`.
 

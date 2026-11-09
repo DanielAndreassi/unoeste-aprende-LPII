@@ -6,7 +6,7 @@
 - Ícones por tipo de material (pdf, zip, link, doc) no lugar das imagens antigas.
 
 ## Requisitos de UX (decididos)
-- [ ] **Modo escuro**: `darkMode: 'class'` no Tailwind; na primeira visita segue o sistema operacional (`prefers-color-scheme`), depois vale a escolha salva no localStorage.
+- [ ] **Modo escuro**: classe `dark` no `<html>` (Tailwind v4: `@custom-variant dark` em `style.css`, equivalente ao `darkMode: 'class'` do v3), controlada pela store `tema`; na primeira visita segue o sistema operacional (`prefers-color-scheme`), depois vale a escolha salva no localStorage.
 - [ ] **Responsivo/mobile**: o menu lateral da disciplina vira drawer; o calendário se adapta.
 - [ ] **Notificações in-app**: sino no header com contador; criadas no backend quando surge novo material, nota ou evento (recurso `Notificacao`, com marcar como lida).
 - [ ] **Barra de progresso por disciplina**: % de materiais concluídos pelo aluno, exibida no card da home.
