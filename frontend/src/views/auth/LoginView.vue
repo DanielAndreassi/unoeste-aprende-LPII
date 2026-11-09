@@ -44,14 +44,14 @@ async function entrar() {
     <button
       type="submit"
       :disabled="enviando"
-      class="w-full rounded-lg bg-primary-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary-900 disabled:opacity-60"
+      class="btn-primario w-full"
     >
       {{ enviando ? 'Entrando…' : 'Entrar' }}
     </button>
     <p class="text-center text-sm">
       <RouterLink
         :to="{ name: 'esqueci-senha' }"
-        class="text-primary-700 underline dark:text-primary-300"
+        class="link"
       >
         Esqueci minha senha
       </RouterLink>

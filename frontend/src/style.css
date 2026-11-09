@@ -25,6 +25,21 @@
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-primary-600;
   }
+  /* bordas são hairlines por padrão (6–10% do texto) */
+  *,
+  ::before,
+  ::after {
+    @apply border-gray-900/10 dark:border-white/10;
+  }
+}
+
+@layer components {
+  .btn-primario {
+    @apply inline-flex h-10 items-center justify-center rounded-lg bg-primary-800 px-4 text-sm font-medium text-white transition-colors hover:bg-primary-900 disabled:opacity-60;
+  }
+  .link {
+    @apply text-primary-800 underline underline-offset-2 transition-colors hover:text-primary-900 dark:text-primary-300 dark:hover:text-primary-200;
+  }
 }
 
 /* Estilo do HTML gerado pelo MarkdownView */

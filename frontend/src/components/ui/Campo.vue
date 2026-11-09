@@ -17,7 +17,7 @@ const id = `campo-${useId()}`;
       v-bind="$attrs"
       :aria-invalid="!!erro"
       :aria-describedby="erro ? `${id}-erro` : undefined"
-      class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-400 dark:border-gray-700 dark:bg-gray-800 aria-invalid:border-red-600"
+      class="h-10 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm transition-colors hover:border-gray-400 focus-visible:border-primary-700 dark:border-gray-700 dark:bg-gray-900 dark:hover:border-gray-600 dark:focus-visible:border-primary-400 aria-invalid:border-red-600"
     />
     <p v-if="erro" :id="`${id}-erro`" class="mt-1 text-sm text-red-700 dark:text-red-400">
       {{ erro }}

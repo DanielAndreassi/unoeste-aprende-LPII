@@ -36,7 +36,7 @@ async function salvar() {
 <template>
   <form v-if="route.query.token" class="space-y-4" @submit.prevent="salvar">
     <p class="text-sm text-gray-600 dark:text-gray-400">
-      {{ primeiraSenha ? 'Bem-vindo! Defina sua senha para entrar.' : 'Escolha uma nova senha.' }}
+      {{ primeiraSenha ? 'Defina sua senha para entrar.' : 'Escolha uma nova senha.' }}
       Mínimo de 8 caracteres, com letra e número.
     </p>
     <Campo v-model="senha" label="Nova senha" type="password" autocomplete="new-password" required />
@@ -51,14 +51,14 @@ async function salvar() {
     <button
       type="submit"
       :disabled="enviando"
-      class="w-full rounded-lg bg-primary-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary-900 disabled:opacity-60"
+      class="btn-primario w-full"
     >
       {{ enviando ? 'Salvando…' : 'Salvar senha' }}
     </button>
   </form>
   <p v-else role="alert" class="text-sm">
-    Link inválido.
-    <RouterLink :to="{ name: 'esqueci-senha' }" class="text-primary-700 underline dark:text-primary-300">
+    Link inválido
+    <RouterLink :to="{ name: 'esqueci-senha' }" class="link">
       Solicitar novo link
     </RouterLink>
   </p>

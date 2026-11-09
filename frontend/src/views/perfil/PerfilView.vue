@@ -52,56 +52,72 @@ const classeMsg = (m) =>
 </script>
 
 <template>
-  <main class="mx-auto max-w-3xl space-y-6 px-4 py-6">
-    <h1 class="text-2xl font-bold">Meu perfil</h1>
+  <main class="mx-auto max-w-3xl px-4 py-8">
+    <h1 class="text-2xl font-medium">Meu perfil</h1>
 
     <form
-      class="space-y-4 rounded-2xl bg-white p-6 shadow-sm dark:bg-gray-900"
+      class="mt-6 grid gap-6 rounded-xl border bg-white p-6 sm:grid-cols-[192px_1fr] dark:bg-gray-900"
       @submit.prevent="salvarPerfil"
     >
-      <div class="flex items-center gap-4">
-        <Avatar :usuario="auth.usuario" tamanho="h-20 w-20 text-xl" />
+      <div class="space-y-4">
+        <Avatar :usuario="auth.usuario" tamanho="h-24 w-24 text-3xl" />
         <div class="min-w-0 text-sm">
-          <p class="truncate font-semibold">{{ auth.usuario.email }}</p>
-          <p class="text-gray-600 dark:text-gray-400">{{ rotulos[auth.role] }}</p>
+          <p class="truncate font-medium">{{ auth.usuario.email }}</p>
+          <p class="text-gray-500 dark:text-gray-400">{{ rotulos[auth.role] }}</p>
         </div>
       </div>
 
-      <Campo v-model="nome" label="Nome" autocomplete="name" required :erro="erroNome" />
+      <div class="space-y-4">
+        <Campo v-model="nome" label="Nome" autocomplete="name" required :erro="erroNome" />
 
-      <div>
-        <label for="avatar" class="mb-1 block text-sm font-medium">Foto (jpg, png ou webp, até 2 MB)</label>
-        <input
-          id="avatar"
-          type="file"
-          accept="image/jpeg,image/png,image/webp"
-          class="block w-full text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-primary-100 file:px-3 file:py-2 file:text-primary-900"
-          @change="arquivo = $event.target.files[0] ?? null"
-        />
+        <div>
+          <label for="avatar" class="mb-1 block text-sm font-medium">Foto</label>
+          <input
+            id="avatar"
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            class="block w-full text-sm file:mr-3 file:h-10 file:rounded-lg file:border-0 file:bg-gray-100 file:px-4 file:text-sm file:font-medium file:transition-colors hover:file:bg-gray-200 dark:file:bg-gray-800 dark:hover:file:bg-gray-700"
+            @change="arquivo = $event.target.files[0] ?? null"
+          />
+          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">jpg, png ou webp, até 2 MB</p>
+        </div>
+
+        <p
+          v-if="msgPerfil.texto"
+          :role="msgPerfil.tipo === 'erro' ? 'alert' : 'status'"
+          :class="['text-sm', classeMsg(msgPerfil)]"
+        >
+          {{ msgPerfil.texto }}
+        </p>
+        <button type="submit" class="btn-primario">Salvar</button>
       </div>
-
-      <p v-if="msgPerfil.texto" :role="msgPerfil.tipo === 'erro' ? 'alert' : 'status'" :class="['text-sm', classeMsg(msgPerfil)]">
-        {{ msgPerfil.texto }}
-      </p>
-      <button type="submit" class="rounded-lg bg-primary-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary-900">
-        Salvar
-      </button>
     </form>
 
-    <form
-      class="space-y-4 rounded-2xl bg-white p-6 shadow-sm dark:bg-gray-900"
-      @submit.prevent="salvarSenha"
-    >
-      <h2 class="text-lg font-semibold">Trocar senha</h2>
-      <Campo v-model="senhaAtual" label="Senha atual" type="password" autocomplete="current-password" required />
-      <Campo v-model="senhaNova" label="Nova senha" type="password" autocomplete="new-password" required />
-      <p class="text-sm text-gray-600 dark:text-gray-400">Mínimo de 8 caracteres, com letra e número.</p>
-      <p v-if="msgSenha.texto" :role="msgSenha.tipo === 'erro' ? 'alert' : 'status'" :class="['text-sm', classeMsg(msgSenha)]">
+    <form class="mt-8 max-w-sm space-y-4" @submit.prevent="salvarSenha">
+      <h2 class="text-lg font-medium">Trocar senha</h2>
+      <Campo
+        v-model="senhaAtual"
+        label="Senha atual"
+        type="password"
+        autocomplete="current-password"
+        required
+      />
+      <Campo
+        v-model="senhaNova"
+        label="Nova senha"
+        type="password"
+        autocomplete="new-password"
+        required
+      />
+      <p class="text-sm text-gray-500 dark:text-gray-400">Mínimo de 8 caracteres, com letra e número</p>
+      <p
+        v-if="msgSenha.texto"
+        :role="msgSenha.tipo === 'erro' ? 'alert' : 'status'"
+        :class="['text-sm', classeMsg(msgSenha)]"
+      >
         {{ msgSenha.texto }}
       </p>
-      <button type="submit" class="rounded-lg bg-primary-800 px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary-900">
-        Alterar senha
-      </button>
+      <button type="submit" class="btn-primario">Alterar senha</button>
     </form>
   </main>
 </template>
