@@ -1,6 +1,6 @@
 # AGENTS.md — Aprender Unoeste (clone LP2)
 
-> Regras brutas do projeto. Detalhes nos arquivos linkados. Status: **planejamento fechado — sem código ainda**.
+> Regras brutas do projeto. Detalhes nos arquivos linkados. Status: **setup comum (06/11) pronto na `feat/setup`** — models, middlewares, seed mínimo e front base; módulos A/B partem daqui.
 
 ## Contexto
 - Clone melhorado do "Aprender Unoeste" (AVA da faculdade): mais bonito e com melhores funcionalidades. Tema validado com o professor.
