@@ -3,6 +3,7 @@ import { useRouter } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
 import { useTemaStore } from '../stores/tema';
 import Avatar from '../components/ui/Avatar.vue';
+import Marca from '../components/ui/Marca.vue';
 
 const auth = useAuthStore();
 const tema = useTemaStore();
@@ -20,11 +21,8 @@ function sair() {
   <div class="min-h-screen">
     <header class="sticky top-0 z-30 border-b bg-white dark:bg-gray-900">
       <div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4">
-        <RouterLink
-          :to="{ name: 'home' }"
-          class="text-lg font-medium text-primary-800 dark:text-primary-300"
-        >
-          Aprender Unoeste
+        <RouterLink :to="{ name: 'home' }" aria-label="Aprender Unoeste, início">
+          <Marca />
         </RouterLink>
         <template v-if="auth.role">
           <span class="h-4 w-px bg-gray-900/10 dark:bg-white/10" aria-hidden="true" />

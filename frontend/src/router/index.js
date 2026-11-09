@@ -11,7 +11,7 @@ const routes = [
       {
         path: '',
         name: 'login',
-        meta: { titulo: 'Entrar' },
+        meta: { titulo: 'Entrar', subtitulo: 'Acesse suas disciplinas' },
         component: () => import('../views/auth/LoginView.vue'),
       },
       {

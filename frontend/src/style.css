@@ -6,6 +6,20 @@
 /* Verde Unoeste repaginado (design.md): primary-800 = #2E7D32 do header original */
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', ui-serif, Georgia, serif;
+
+  /* Cinzas com um leve tom verde-musgo: fundos e superfícies do app */
+  --color-gray-50: #f6f8f5;
+  --color-gray-100: #edf1ec;
+  --color-gray-200: #dfe5de;
+  --color-gray-300: #c6cfc6;
+  --color-gray-400: #98a59b;
+  --color-gray-500: #66746a;
+  --color-gray-600: #4f5c53;
+  --color-gray-700: #3b463f;
+  --color-gray-800: #27302a;
+  --color-gray-900: #18201b;
+  --color-gray-950: #0e1410;
   --color-primary-50: #e8f5e9;
   --color-primary-100: #c8e6c9;
   --color-primary-200: #a5d6a7;
@@ -16,11 +30,12 @@
   --color-primary-700: #388e3c;
   --color-primary-800: #2e7d32;
   --color-primary-900: #1b5e20;
+  --color-primary-950: #0f2e13;
 }
 
 @layer base {
   body {
-    @apply bg-gray-50 text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100;
+    @apply bg-gray-100 text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100;
   }
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-primary-600;
@@ -35,7 +50,7 @@
 
 @layer components {
   .btn-primario {
-    @apply inline-flex h-10 items-center justify-center rounded-lg bg-primary-800 px-4 text-sm font-medium text-white transition-colors hover:bg-primary-900 disabled:opacity-60;
+    @apply inline-flex h-11 items-center justify-center rounded-lg bg-primary-800 px-4 text-sm font-medium text-white transition-colors hover:bg-primary-900 disabled:opacity-60;
   }
   .link {
     @apply text-primary-800 underline underline-offset-2 transition-colors hover:text-primary-900 dark:text-primary-300 dark:hover:text-primary-200;
@@ -76,5 +91,23 @@
   }
   .markdown blockquote {
     @apply border-l-4 border-gray-300 pl-4 text-gray-600 dark:border-gray-700 dark:text-gray-400;
+  }
+}
+
+/* Uma única entrada na carga: fade + subida curta (desligada com prefers-reduced-motion) */
+@keyframes entrar {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+@layer utilities {
+  .animar-entrada {
+    animation: entrar 400ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .animar-entrada {
+      animation: none;
+    }
   }
 }

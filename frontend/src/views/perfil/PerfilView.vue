@@ -56,7 +56,7 @@ const classeMsg = (m) =>
     <h1 class="text-2xl font-medium">Meu perfil</h1>
 
     <form
-      class="mt-6 grid gap-6 rounded-xl border bg-white p-6 sm:grid-cols-[192px_1fr] dark:bg-gray-900"
+      class="mt-6 grid gap-6 rounded-xl border bg-white p-6 shadow-sm sm:grid-cols-[192px_1fr] dark:bg-gray-900"
       @submit.prevent="salvarPerfil"
     >
       <div class="space-y-4">
