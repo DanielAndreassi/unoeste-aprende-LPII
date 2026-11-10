@@ -1,0 +1,139 @@
+# Roteiro de demonstração: progresso do aluno e calendário (eventos de turma e institucionais). Senha do seed: Senha123.
+# Rode antes: docker compose exec backend npm run seed.
+# Troque @turma, @material e @institucional pelos _id (turma e material: GET /turmas/{{turma}}/conteudo; institucional: GET /eventos-institucionais).
+@api = http://localhost:3000/api
+@turma = COLE_O_ID_DA_TURMA
+@material = COLE_O_ID_DE_UM_MATERIAL
+@institucional = COLE_O_ID_DE_UM_EVENTO_INSTITUCIONAL
+
+### Login do aluno
+# @name loginAluno
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{ "email": "aluno1@aprender.local", "senha": "Senha123" }
+
+###
+@tokenAluno = {{loginAluno.response.body.token}}
+
+### Login do professor
+# @name loginProf
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{ "email": "prof1@aprender.local", "senha": "Senha123" }
+
+###
+@tokenProf = {{loginProf.response.body.token}}
+
+### Login do admin
+# @name loginAdmin
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{ "email": "admin@aprender.local", "senha": "Senha123" }
+
+###
+@tokenAdmin = {{loginAdmin.response.body.token}}
+
+# --- progresso ---
+
+### Aluno marca material como concluído → 200 com o progresso
+PUT {{api}}/materiais/{{material}}/progresso
+Authorization: Bearer {{tokenAluno}}
+
+### Marcar de novo é idempotente → 200, mesmo documento
+PUT {{api}}/materiais/{{material}}/progresso
+Authorization: Bearer {{tokenAluno}}
+
+### Aluno desmarca → 204
+DELETE {{api}}/materiais/{{material}}/progresso
+Authorization: Bearer {{tokenAluno}}
+
+### Desmarcar de novo (não existia) → 204
+DELETE {{api}}/materiais/{{material}}/progresso
+Authorization: Bearer {{tokenAluno}}
+
+### Professor não marca progresso → 403
+PUT {{api}}/materiais/{{material}}/progresso
+Authorization: Bearer {{tokenProf}}
+
+# --- eventos de turma ---
+
+### Professor cria evento na turma → 201 (turma vem da URL, não do body)
+# @name evento
+POST {{api}}/turmas/{{turma}}/eventos
+Authorization: Bearer {{tokenProf}}
+Content-Type: application/json
+
+{
+  "titulo": "Prova 1",
+  "tipo": "prova",
+  "inicio": "2026-11-20T19:00:00-03:00",
+  "fim": "2026-11-20T21:00:00-03:00"
+}
+
+###
+@evento = {{evento.response.body._id}}
+
+### Fim antes do início → 400
+POST {{api}}/turmas/{{turma}}/eventos
+Authorization: Bearer {{tokenProf}}
+Content-Type: application/json
+
+{
+  "titulo": "Evento inválido",
+  "inicio": "2026-11-20T19:00:00-03:00",
+  "fim": "2026-11-20T18:00:00-03:00"
+}
+
+### Aluno não cria evento → 403
+POST {{api}}/turmas/{{turma}}/eventos
+Authorization: Bearer {{tokenAluno}}
+Content-Type: application/json
+
+{ "titulo": "Não pode", "inicio": "2026-11-20T19:00:00-03:00", "fim": "2026-11-20T21:00:00-03:00" }
+
+### Membro lista os eventos da turma no período (ordenados por início)
+GET {{api}}/turmas/{{turma}}/eventos?de=2026-11-01&ate=2026-11-30
+Authorization: Bearer {{tokenAluno}}
+
+### Professor atualiza o evento → 200
+PUT {{api}}/eventos/{{evento}}
+Authorization: Bearer {{tokenProf}}
+Content-Type: application/json
+
+{ "titulo": "Prova 1 (sala 3)", "fim": "2026-11-20T22:00:00-03:00" }
+
+### Evento institucional não é editado aqui → 404 (use /eventos-institucionais)
+PUT {{api}}/eventos/{{institucional}}
+Authorization: Bearer {{tokenProf}}
+Content-Type: application/json
+
+{ "titulo": "Tentativa" }
+
+### Professor exclui o evento → 204
+DELETE {{api}}/eventos/{{evento}}
+Authorization: Bearer {{tokenProf}}
+
+# --- calendário geral ---
+
+### Aluno vê seus eventos e os institucionais no período
+GET {{api}}/eventos?de=2026-11-01&ate=2026-11-30
+Authorization: Bearer {{tokenAluno}}
+
+### Filtro por uma turma (institucionais continuam)
+GET {{api}}/eventos?turma={{turma}}
+Authorization: Bearer {{tokenAluno}}
+
+### Data inválida → 400
+GET {{api}}/eventos?de=nao-e-data
+Authorization: Bearer {{tokenAluno}}
+
+### Turma sem vínculo com o usuário → 403 (use o _id de outra turma)
+GET {{api}}/eventos?turma=COLE_OUTRA_TURMA
+Authorization: Bearer {{tokenAluno}}
+
+### Admin vê todos os eventos
+GET {{api}}/eventos
+Authorization: Bearer {{tokenAdmin}}

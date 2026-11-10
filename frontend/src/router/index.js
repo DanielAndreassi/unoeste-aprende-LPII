@@ -36,6 +36,12 @@ const routes = [
       { path: '', name: 'home', component: () => import('../views/home/HomeView.vue') },
       { path: 'perfil', name: 'perfil', component: () => import('../views/perfil/PerfilView.vue') },
       {
+        path: 'calendario',
+        name: 'calendario',
+        meta: { roles: ['admin', 'professor', 'aluno'] },
+        component: () => import('../views/calendario/CalendarioView.vue'),
+      },
+      {
         path: 'turmas/:id',
         component: () => import('../layouts/TurmaLayout.vue'),
         meta: { roles: ['professor', 'aluno'] },
@@ -44,6 +50,49 @@ const routes = [
             path: '',
             name: 'turma-inicio',
             component: () => import('../views/turma/TurmaInicioView.vue'),
+          },
+          {
+            path: 'conteudo',
+            name: 'turma-conteudo',
+            component: () => import('../views/turma/ConteudoView.vue'),
+          },
+          {
+            path: 'calendario',
+            name: 'turma-calendario',
+            component: () => import('../views/turma/CalendarioView.vue'),
+          },
+        ],
+      },
+      {
+        // grupo de administração: meta.roles vale para todas as filhas (guard em beforeEach)
+        path: 'admin',
+        meta: { roles: ['admin'] },
+        children: [
+          { path: '', name: 'admin', component: () => import('../views/admin/PainelView.vue') },
+          {
+            path: 'usuarios',
+            name: 'admin-usuarios',
+            component: () => import('../views/admin/UsuariosView.vue'),
+          },
+          {
+            path: 'cursos',
+            name: 'admin-cursos',
+            component: () => import('../views/admin/CursosView.vue'),
+          },
+          {
+            path: 'disciplinas',
+            name: 'admin-disciplinas',
+            component: () => import('../views/admin/DisciplinasView.vue'),
+          },
+          {
+            path: 'turmas',
+            name: 'admin-turmas',
+            component: () => import('../views/admin/TurmasView.vue'),
+          },
+          {
+            path: 'eventos',
+            name: 'admin-eventos',
+            component: () => import('../views/admin/EventosInstitucionaisView.vue'),
           },
         ],
       },

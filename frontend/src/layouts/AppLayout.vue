@@ -10,6 +10,14 @@ const tema = useTemaStore();
 const router = useRouter();
 
 const rotulos = { admin: 'Admin', professor: 'Professor', aluno: 'Aluno' };
+const linksAdmin = [
+  { to: 'admin', rotulo: 'Painel' },
+  { to: 'admin-usuarios', rotulo: 'Usuários' },
+  { to: 'admin-cursos', rotulo: 'Cursos' },
+  { to: 'admin-disciplinas', rotulo: 'Disciplinas' },
+  { to: 'admin-turmas', rotulo: 'Turmas' },
+  { to: 'admin-eventos', rotulo: 'Eventos institucionais' },
+];
 
 function sair() {
   auth.sair();
@@ -31,6 +39,12 @@ function sair() {
 
         <div class="ml-auto flex items-center gap-2">
           <!-- O sino de notificações entra aqui (13/11) -->
+          <RouterLink
+            :to="{ name: 'calendario' }"
+            class="flex h-10 items-center rounded-lg px-3 text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
+            Calendário
+          </RouterLink>
           <RouterLink
             :to="{ name: 'perfil' }"
             class="flex h-10 items-center gap-2 rounded-lg px-2 text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -86,6 +100,22 @@ function sair() {
           </button>
         </div>
       </div>
+      <nav
+        v-if="auth.role === 'admin'"
+        aria-label="Administração"
+        class="border-t bg-white dark:bg-gray-900"
+      >
+        <div class="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-4">
+          <RouterLink
+            v-for="l in linksAdmin"
+            :key="l.to"
+            :to="{ name: l.to }"
+            class="flex h-11 shrink-0 items-center rounded-lg px-3 text-sm text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 aria-[current=page]:font-medium aria-[current=page]:text-primary-800 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-100 dark:aria-[current=page]:text-primary-300"
+          >
+            {{ l.rotulo }}
+          </RouterLink>
+        </div>
+      </nav>
     </header>
 
     <RouterView />
