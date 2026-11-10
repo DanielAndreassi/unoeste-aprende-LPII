@@ -96,5 +96,5 @@ export async function enviar(req, res) {
   // Só grava depois da resposta: se a IA falhar nada fica pela metade e o front mantém o texto digitado.
   if (!conversa.mensagens.length) conversa.titulo = texto.slice(0, 60);
   conversa.mensagens.push({ autor: 'usuario', texto }, { autor: 'ia', texto: resposta });
-  res.json(await conversa.save());
+  res.json({ ...(await conversa.save()).toJSON(), restantes: LIMITE_DIARIO - n - 1 });
 }

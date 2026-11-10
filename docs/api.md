@@ -86,8 +86,8 @@ Criadas pelo backend (novo material, novo evento de turma, nota lançada ou alte
 
 ## Assistente IA — membro B
 
-| Método     | Rota                                                  | Acesso                  |
-| ---------- | ----------------------------------------------------- | ----------------------- |
-| GET/POST   | /turmas/:id/conversas                                 | membro (só as próprias) |
-| GET/DELETE | /conversas/:id                                        | dono                    |
-| POST       | /conversas/:id/mensagens `{ texto }` → resposta da IA | dono (429 após 30/dia)  |
+| Método     | Rota                                                                                                                                                                                                   | Acesso                  |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- |
+| GET/POST   | /turmas/:id/conversas                                                                                                                                                                                  | membro (só as próprias) |
+| GET/DELETE | /conversas/:id                                                                                                                                                                                         | dono                    |
+| POST       | /conversas/:id/mensagens `{ texto }` → a conversa inteira + `restantes` (perguntas que sobram hoje, de 30). 429 após 30/dia; 503 se o Gemini estiver sem cota ou fora do ar (a pergunta não é gravada) | dono                    |
