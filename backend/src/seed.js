@@ -13,6 +13,7 @@ import Secao from './models/Secao.js';
 import Material from './models/Material.js';
 import Avaliacao from './models/Avaliacao.js';
 import Nota from './models/Nota.js';
+import PlanoEnsino from './models/PlanoEnsino.js';
 import { MATERIAIS_DIR } from './config/uploads.js';
 import { semestreAtual } from './utils/semestre.js';
 
@@ -97,6 +98,16 @@ await Nota.create([
   { avaliacao: prova, aluno: aluno1, valor: 8 },
   { avaliacao: trabalho, aluno: aluno1, valor: 6.5 },
 ]);
+
+await PlanoEnsino.create({
+  turma,
+  ementa: 'Acompanhamento das atividades de estágio supervisionado em Sistemas de Informação.',
+  objetivos:
+    '- Aplicar conhecimentos do curso em ambiente real\n- Produzir o relatório final de estágio',
+  conteudoProgramatico: '1. Plano de estágio\n2. Reuniões de orientação\n3. Relatório final',
+  avaliacao: 'Prova 1 (peso 3) e trabalho final (peso 2). Aprovação com média 6,0.',
+  bibliografia: '- Manual de estágio da Unoeste',
+});
 
 console.log(`\nSeed concluído. Senha de todos: ${SENHA}`);
 console.table((await Usuario.find().lean()).map(({ email, role }) => ({ email, role })));

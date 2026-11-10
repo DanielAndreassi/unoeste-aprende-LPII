@@ -56,3 +56,36 @@ test('política de senha', () => {
   assert.ok(validarSenha('12345678'));
   assert.ok(validarSenha(undefined));
 });
+
+test('contexto da turma inclui plano, texto dos materiais e eventos', async () => {
+  const { montarContexto, inicioDoDia } = await import('../src/utils/contexto.js');
+  const ctx = montarContexto({
+    rotulo: 'Estágio - 7A (2/2026)',
+    plano: { ementa: 'Minha ementa', objetivos: '  ' },
+    topicos: [
+      {
+        titulo: 'ALUNOS',
+        secoes: [
+          {
+            titulo: 'Docs',
+            materiais: [
+              { tipo: 'texto', titulo: 'Guia', descricao: 'leia', conteudo: 'passo a passo' },
+              { tipo: 'link', titulo: 'Portal' },
+            ],
+          },
+        ],
+      },
+    ],
+    eventos: [],
+  });
+  assert.match(ctx, /Minha ementa/);
+  assert.doesNotMatch(ctx, /### Objetivos/); // campo em branco fica de fora
+  assert.match(ctx, /passo a passo/);
+  assert.match(ctx, /\(link\) Portal/);
+  assert.match(ctx, /## Eventos\n\n\(nenhum\)/);
+  // 01:30 UTC de 10/11 ainda é 09/11 em São Paulo
+  assert.equal(
+    inicioDoDia(new Date('2026-11-10T01:30:00Z')).toISOString(),
+    '2026-11-09T03:00:00.000Z',
+  );
+});

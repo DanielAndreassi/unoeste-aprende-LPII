@@ -66,6 +66,16 @@ const routes = [
             name: 'turma-notas',
             component: () => import('../views/turma/NotasView.vue'),
           },
+          {
+            path: 'plano',
+            name: 'turma-plano',
+            component: () => import('../views/turma/PlanoView.vue'),
+          },
+          {
+            path: 'assistente',
+            name: 'turma-assistente',
+            component: () => import('../views/turma/AssistenteView.vue'),
+          },
         ],
       },
       {
