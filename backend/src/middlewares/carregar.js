@@ -10,7 +10,8 @@ import Turma from '../models/Turma.js';
  *   router.param('materialId', carregar(Material));  // → req.material + req.turma
  */
 export default function carregar(Model) {
-  const chave = Model.modelName.toLowerCase();
+  // req.usuario é o logado (auth): o Usuario carregado do parâmetro vai para req.alvo
+  const chave = Model.modelName === 'Usuario' ? 'alvo' : Model.modelName.toLowerCase();
 
   return async (req, _res, next, id) => {
     const doc = await Model.findById(id); // id malformado → CastError → 400 no errorHandler
