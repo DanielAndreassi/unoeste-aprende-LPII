@@ -4,6 +4,7 @@ import { useAuthStore } from '../stores/auth';
 import { useTemaStore } from '../stores/tema';
 import Avatar from '../components/ui/Avatar.vue';
 import Marca from '../components/ui/Marca.vue';
+import SinoNotificacoes from '../components/notificacoes/SinoNotificacoes.vue';
 
 const auth = useAuthStore();
 const tema = useTemaStore();
@@ -38,7 +39,7 @@ function sair() {
         </template>
 
         <div class="ml-auto flex items-center gap-2">
-          <!-- O sino de notificações entra aqui (13/11) -->
+          <SinoNotificacoes v-if="auth.role === 'aluno'" />
           <RouterLink
             :to="{ name: 'calendario' }"
             class="flex h-10 items-center rounded-lg px-3 text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"

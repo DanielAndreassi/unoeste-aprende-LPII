@@ -75,8 +75,14 @@ Roteiro de requisições: [backend/requests/auth.http](../backend/requests/auth.
 
 ## Notificações — membro A
 
-| GET | /notificacoes · PATCH /notificacoes/:id/lida · PATCH /notificacoes/lidas · DELETE /notificacoes/:id | auth (só as próprias) |
-| --- | --------------------------------------------------------------------------------------------------- | --------------------- |
+Criadas pelo backend (novo material, novo evento de turma, nota lançada ou alterada) só para alunos ativos matriculados; evento institucional não notifica. Rotas do próprio usuário (de outro → 404).
+
+| Método | Rota                   | Resposta                                                                                                              |
+| ------ | ---------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| GET    | /notificacoes          | `{ itens: [{ _id, tipo: material\|evento\|nota, mensagem, link, lida, createdAt }], naoLidas }` — as 50 mais recentes |
+| PATCH  | /notificacoes/:id/lida | notificação atualizada                                                                                                |
+| PATCH  | /notificacoes/lidas    | 204 (marca todas)                                                                                                     |
+| DELETE | /notificacoes/:id      | 204                                                                                                                   |
 
 ## Assistente IA — membro B
 
