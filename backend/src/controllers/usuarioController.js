@@ -43,7 +43,10 @@ export const obter = (req, res) => res.json(req.alvo);
 // PUT não mexe em senha. Sem `ativo` no corpo, mantém o atual (reativar é PUT com ativo:true).
 export async function atualizar(req, res) {
   const { nome, email, role, ativo = req.alvo.ativo } = req.body;
-  if (req.alvo._id.equals(req.usuario._id) && (ativo === false || (role && role !== req.usuario.role)))
+  if (
+    req.alvo._id.equals(req.usuario._id) &&
+    (ativo === false || (role && role !== req.usuario.role))
+  )
     throw createError(400, 'Você não pode desativar nem trocar o papel da própria conta');
   req.alvo.set({ nome, email, role, ativo });
   res.json(await req.alvo.save());
