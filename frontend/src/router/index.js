@@ -61,6 +61,11 @@ const routes = [
             name: 'turma-calendario',
             component: () => import('../views/turma/CalendarioView.vue'),
           },
+          {
+            path: 'notas',
+            name: 'turma-notas',
+            component: () => import('../views/turma/NotasView.vue'),
+          },
         ],
       },
       {

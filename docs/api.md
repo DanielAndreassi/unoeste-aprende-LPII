@@ -59,12 +59,13 @@ Roteiro de requisições: [backend/requests/auth.http](../backend/requests/auth.
 |---|---|---|
 
 ## Notas — membro A
-| Método | Rota | Acesso |
-|---|---|---|
-| GET/POST | /turmas/:id/avaliacoes | prof |
-| PUT/DELETE | /avaliacoes/:id | prof |
-| PUT | /avaliacoes/:id/notas (lote `[{aluno, valor}]`) | prof |
-| GET | /turmas/:id/notas | prof: tabela da turma · mat: só as próprias + média + situação |
+
+| Método     | Rota                                                                                                                                                                      | Acesso                                         |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| GET/POST   | /turmas/:id/avaliacoes `{ nome, peso, data? }`                                                                                                                            | prof                                           |
+| PUT/DELETE | /avaliacoes/:id                                                                                                                                                           | prof (DELETE apaga as notas da avaliação, 204) |
+| PUT        | /avaliacoes/:id/notas (lote `[{aluno, valor}]`; `valor: null` apaga a nota; 204; 400 e nada gravado se algum aluno não for da turma, nota fora de 0–10 ou aluno repetido) | prof                                           |
+| GET        | /turmas/:id/notas → `{ avaliacoes: [...], alunos: [{ aluno: {_id, nome, email, avatar}, notas: { <avaliacaoId>: valor\|null }, media, situacao }] }`                      | prof: todos os alunos · mat: só o próprio      |
 
 ## Notificações — membro A
 | GET | /notificacoes · PATCH /notificacoes/:id/lida · PATCH /notificacoes/lidas · DELETE /notificacoes/:id | auth (só as próprias) |

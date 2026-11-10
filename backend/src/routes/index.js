@@ -7,6 +7,7 @@ import academicoRoutes from './academico.js';
 import adminRoutes from './admin.js';
 import progressoRoutes from './progresso.js';
 import calendarioRoutes from './calendario.js';
+import notasRoutes from './notas.js';
 
 /*
  * Roteador da API. Cada módulo exporta um Router e é registrado aqui.
@@ -31,5 +32,6 @@ router.use(academicoRoutes);
 router.use(adminRoutes);
 router.use(progressoRoutes);
 router.use(calendarioRoutes);
+router.use(notasRoutes);
 
 export default router;
