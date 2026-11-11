@@ -1,4 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { h } from 'vue';
+import { createRouter, createWebHistory, RouterView } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
 
 // meta.publica = não exige login; meta.roles = perfis permitidos (herdado pelas rotas filhas).
@@ -97,6 +98,10 @@ const routes = [
       {
         // grupo de administração: meta.roles vale para todas as filhas (guard em beforeEach)
         path: 'admin',
+        // as telas de admin são só <section>: o grupo dá a largura e as margens da página
+        component: {
+          render: () => h('main', { class: 'mx-auto max-w-7xl px-4 py-6' }, h(RouterView)),
+        },
         meta: { roles: ['admin'] },
         children: [
           { path: '', name: 'admin', component: () => import('../views/admin/PainelView.vue') },
