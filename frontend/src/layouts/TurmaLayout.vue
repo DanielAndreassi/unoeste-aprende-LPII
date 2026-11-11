@@ -55,7 +55,7 @@ const itens = [
           <li v-for="[rotulo, caminho] in itens" :key="caminho">
             <RouterLink
               :to="`/turmas/${route.params.id}/${caminho}`"
-              class="block rounded-lg px-3 py-2 text-sm hover:bg-primary-50 dark:hover:bg-gray-800"
+              class="block rounded-lg px-3 py-3 text-sm lg:py-2 hover:bg-primary-50 dark:hover:bg-gray-800"
               exact-active-class="bg-primary-100 font-medium text-primary-900 dark:bg-gray-800 dark:text-primary-300"
             >
               {{ rotulo }}

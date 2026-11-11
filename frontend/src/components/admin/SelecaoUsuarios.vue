@@ -64,7 +64,7 @@ onMounted(buscar);
     <ul class="max-h-56 space-y-1 overflow-y-auto rounded-lg border p-2">
       <li v-for="u in visiveis" :key="u._id">
         <label
-          class="flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
+          class="flex cursor-pointer items-center gap-2 rounded-md px-2 py-3 text-sm sm:py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
         >
           <input
             type="checkbox"

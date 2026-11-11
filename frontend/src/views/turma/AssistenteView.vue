@@ -142,7 +142,7 @@ async function confirmarExclusao() {
         </button>
         <button
           type="button"
-          class="mt-2 w-full rounded-lg px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 lg:hidden dark:text-gray-300 dark:hover:bg-gray-800"
+          class="mt-2 h-11 w-full rounded-lg px-3 text-left text-sm text-gray-700 hover:bg-gray-100 lg:hidden dark:text-gray-300 dark:hover:bg-gray-800"
           :aria-expanded="mostrarLista"
           aria-controls="lista-conversas"
           @click="mostrarLista = !mostrarLista"
@@ -162,7 +162,7 @@ async function confirmarExclusao() {
               :disabled="enviando"
               :aria-current="atual?._id === c._id"
               :class="[
-                'w-full truncate rounded-lg px-3 py-2 text-left text-sm hover:bg-primary-50 dark:hover:bg-gray-800',
+                'h-11 w-full truncate rounded-lg px-3 text-left text-sm sm:h-10 hover:bg-primary-50 dark:hover:bg-gray-800',
                 atual?._id === c._id &&
                   'bg-primary-100 font-medium text-primary-900 dark:bg-gray-800 dark:text-primary-300',
               ]"
@@ -198,7 +198,7 @@ async function confirmarExclusao() {
                 v-for="s in SUGESTOES"
                 :key="s"
                 type="button"
-                class="rounded-full border border-gray-300 px-3 py-1.5 text-sm hover:bg-primary-50 dark:border-gray-700 dark:hover:bg-gray-800"
+                class="min-h-11 rounded-full border border-gray-300 px-4 py-2 text-sm sm:min-h-10 hover:bg-primary-50 dark:border-gray-700 dark:hover:bg-gray-800"
                 @click="sugerir(s)"
               >
                 {{ s }}

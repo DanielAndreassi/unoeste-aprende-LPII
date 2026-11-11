@@ -181,10 +181,10 @@ const dataCurta = (iso) =>
                 peso {{ nota(a.peso) }}<template v-if="a.data"> · {{ dataCurta(a.data) }}</template>
               </div>
               <div v-if="professor" class="mt-1 flex gap-1">
-                <BotaoSecundario class="border !h-8 !px-2 text-xs" @click="editar(a)"
+                <BotaoSecundario class="border !px-2 text-xs sm:!h-8" @click="editar(a)"
                   >Editar</BotaoSecundario
                 >
-                <BotaoSecundario perigo class="!h-8 !px-2 text-xs" @click="pedirExcluir(a)"
+                <BotaoSecundario perigo class="!px-2 text-xs sm:!h-8" @click="pedirExcluir(a)"
                   >Excluir</BotaoSecundario
                 >
               </div>

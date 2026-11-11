@@ -111,7 +111,7 @@ async function abrir(n) {
           </button>
           <button
             type="button"
-            class="mr-2 mt-2 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800"
+            class="mr-2 mt-2 flex h-11 w-11 shrink-0 sm:h-8 sm:w-8 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800"
             aria-label="Excluir notificação"
             @click="store.excluir(n)"
           >
