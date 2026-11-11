@@ -110,10 +110,7 @@ function pedirExcluir(e) {
 
     <p v-if="erro" role="alert" class="mt-4 text-sm text-red-700 dark:text-red-400">{{ erro }}</p>
 
-    <div
-      class="mt-6 rounded-2xl bg-white p-4 shadow-sm sm:p-6 dark:bg-gray-900"
-      :aria-busy="carregando"
-    >
+    <div class="painel mt-6 p-4 sm:p-6" :aria-busy="carregando">
       <CalendarioMes :eventos="itens" @periodo="mudouPeriodo">
         <template #acoes="{ evento, fechar }">
           <template v-if="podeEditar">

@@ -20,7 +20,7 @@ defineEmits(['confirmar']);
         :disabled="enviando"
         @click="$emit('confirmar')"
       >
-        {{ enviando ? 'Aguarde…' : (texto.rotulo ?? 'Excluir') }}
+        {{ enviando ? 'Aguarde…' : texto.rotulo ?? 'Excluir' }}
       </button>
     </div>
   </Modal>

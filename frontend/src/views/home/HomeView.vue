@@ -121,7 +121,7 @@ watch(semestre, (novo, antigo) => antigo && carregarTurmas());
       </div>
 
       <aside class="space-y-6">
-        <section class="rounded-xl border bg-white p-5 shadow-sm dark:bg-gray-900">
+        <section class="painel p-5">
           <h2 class="mb-4 text-sm font-medium">Próximos 7 dias</h2>
           <p v-if="!proximos.length" class="text-sm text-gray-600 dark:text-gray-400">
             Nenhum evento nos próximos 7 dias.
@@ -161,7 +161,7 @@ watch(semestre, (novo, antigo) => antigo && carregarTurmas());
           </ol>
         </section>
 
-        <section class="rounded-xl border bg-white p-5 shadow-sm dark:bg-gray-900">
+        <section class="painel p-5">
           <CalendarioMes :eventos="eventosMes" @periodo="mudouPeriodo" />
         </section>
       </aside>

@@ -52,6 +52,10 @@
   .btn-primario {
     @apply inline-flex h-11 items-center justify-center rounded-lg bg-primary-800 px-4 text-sm font-medium text-white transition-colors hover:bg-primary-900 disabled:opacity-60;
   }
+  /* Painel: toda superfície que agrupa conteúdo (a borda é o que separa do fundo no tema escuro) */
+  .painel {
+    @apply rounded-xl border bg-white shadow-sm dark:bg-gray-900;
+  }
   .link {
     @apply text-primary-800 underline underline-offset-2 transition-colors hover:text-primary-900 dark:text-primary-300 dark:hover:text-primary-200;
   }

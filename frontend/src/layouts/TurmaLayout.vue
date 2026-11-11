@@ -46,7 +46,7 @@ const itens = [
       id="menu-turma"
       :class="[
         'fixed inset-y-0 left-0 z-40 w-64 overflow-y-auto bg-white p-4 shadow-xl transition-transform dark:bg-gray-900',
-        'lg:static lg:z-auto lg:translate-x-0 lg:rounded-2xl lg:shadow-sm',
+        'lg:static lg:z-auto lg:translate-x-0 lg:rounded-xl lg:border lg:shadow-sm',
         menuAberto ? 'translate-x-0' : '-translate-x-full',
       ]"
     >

@@ -128,7 +128,7 @@ async function confirmarExclusao() {
     </p>
 
     <div class="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-[16rem_1fr]">
-      <aside class="rounded-2xl bg-white p-3 shadow-sm dark:bg-gray-900">
+      <aside class="painel p-3">
         <button
           type="button"
           class="btn-primario w-full"
@@ -180,7 +180,7 @@ async function confirmarExclusao() {
         </p>
       </aside>
 
-      <div class="flex min-h-[28rem] flex-col rounded-2xl bg-white p-4 shadow-sm dark:bg-gray-900">
+      <div class="painel flex min-h-[28rem] flex-col p-4">
         <div v-if="atual" class="mb-2 flex items-center justify-between gap-3">
           <h2 class="truncate text-sm font-medium">{{ atual.titulo }}</h2>
           <BotaoSecundario perigo :disabled="enviando" @click="modalExcluir = true">

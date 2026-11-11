@@ -157,10 +157,7 @@ const dataCurta = (iso) =>
 
     <p v-if="erro" role="alert" class="mt-4 text-sm text-red-700 dark:text-red-400">{{ erro }}</p>
 
-    <div
-      class="mt-6 overflow-x-auto rounded-2xl bg-white p-4 shadow-sm sm:p-6 dark:bg-gray-900"
-      :aria-busy="carregando"
-    >
+    <div class="painel mt-6 overflow-x-auto p-4 sm:p-6" :aria-busy="carregando">
       <p v-if="!carregando && !tabela.avaliacoes.length" class="text-sm">
         {{
           professor
