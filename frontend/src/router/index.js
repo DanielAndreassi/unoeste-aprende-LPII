@@ -63,6 +63,16 @@ const routes = [
             component: () => import('../views/turma/ConteudoView.vue'),
           },
           {
+            path: 'professores',
+            name: 'turma-professores',
+            component: () => import('../views/turma/ProfessoresView.vue'),
+          },
+          {
+            path: 'participantes',
+            name: 'turma-participantes',
+            component: () => import('../views/turma/ParticipantesView.vue'),
+          },
+          {
             path: 'calendario',
             name: 'turma-calendario',
             component: () => import('../views/turma/CalendarioView.vue'),
