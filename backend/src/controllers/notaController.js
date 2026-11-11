@@ -2,6 +2,7 @@ import createError from 'http-errors';
 import mongoose from 'mongoose';
 import Avaliacao from '../models/Avaliacao.js';
 import Matricula from '../models/Matricula.js';
+import Notificacao from '../models/Notificacao.js';
 import Nota from '../models/Nota.js';
 import { calcularMedia, situacao } from '../utils/notas.js';
 
@@ -25,6 +26,12 @@ export async function lancar(req, res) {
     throw createError(400, 'Há alunos que não estão matriculados nesta turma');
 
   const avaliacao = req.avaliacao._id;
+  const antes = new Map(
+    (await Nota.find({ avaliacao, aluno: { $in: ids } }).lean()).map((n) => [
+      String(n.aluno),
+      n.valor,
+    ]),
+  );
   await Nota.bulkWrite(
     lote.map(({ aluno, valor }) =>
       valor === null
@@ -38,7 +45,17 @@ export async function lancar(req, res) {
           },
     ),
   );
-  // TODO(notificações — 13/11): avisar o aluno de nota lançada ou alterada.
+  // só quem teve nota criada ou alterada (apagar não avisa)
+  const mudaram = lote.filter((n) => n.valor !== null && antes.get(String(n.aluno)) !== n.valor);
+  await Notificacao.notificar(
+    req.turma,
+    mudaram.map((n) => n.aluno),
+    {
+      tipo: 'nota',
+      mensagem: `Nota lançada: ${req.avaliacao.nome}`,
+      pagina: 'notas',
+    },
+  );
   res.status(204).end();
 }
 

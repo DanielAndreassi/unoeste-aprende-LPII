@@ -1,0 +1,31 @@
+# Roteiro de demonstração: notificações. Senha do seed: Senha123.
+# Rode antes: docker compose exec backend npm run seed.
+@api = http://localhost:3000/api
+
+### Login do aluno
+# @name loginAluno
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{ "email": "aluno1@aprender.local", "senha": "Senha123" }
+
+###
+@token = {{loginAluno.response.body.token}}
+
+### Lista (itens + naoLidas)
+GET {{api}}/notificacoes
+Authorization: Bearer {{token}}
+
+### Marcar uma como lida (cole o _id)
+PATCH {{api}}/notificacoes/COLE_O_ID/lida
+Authorization: Bearer {{token}}
+
+### Marcar todas como lidas
+PATCH {{api}}/notificacoes/lidas
+Authorization: Bearer {{token}}
+
+### Excluir (cole o _id)
+DELETE {{api}}/notificacoes/COLE_O_ID
+Authorization: Bearer {{token}}
+
+# Para gerar: como prof1, crie um evento (calendario.http), um material (conteudo.http) ou lance notas (notas.http).

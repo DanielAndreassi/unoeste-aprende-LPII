@@ -4,6 +4,7 @@ import createError from 'http-errors';
 import Topico from '../models/Topico.js';
 import Secao from '../models/Secao.js';
 import Material from '../models/Material.js';
+import Notificacao from '../models/Notificacao.js';
 import Progresso from '../models/Progresso.js';
 import { UPLOADS_DIR } from '../config/uploads.js';
 
@@ -128,6 +129,11 @@ export async function criarMaterial(req, res) {
         },
       }),
       ordem: await proximaOrdem(Material, { secao: req.secao._id }),
+    });
+    await Notificacao.notificarTurma(req.turma, {
+      tipo: 'material',
+      mensagem: `Novo material: ${material.titulo}`,
+      pagina: 'conteudo',
     });
     res.status(201).json(visao(material));
   } catch (err) {

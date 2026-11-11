@@ -14,6 +14,7 @@ import Material from './models/Material.js';
 import Avaliacao from './models/Avaliacao.js';
 import Nota from './models/Nota.js';
 import PlanoEnsino from './models/PlanoEnsino.js';
+import Notificacao from './models/Notificacao.js';
 import { MATERIAIS_DIR } from './config/uploads.js';
 import { semestreAtual } from './utils/semestre.js';
 
@@ -108,6 +109,23 @@ await PlanoEnsino.create({
   avaliacao: 'Prova 1 (peso 3) e trabalho final (peso 2). Aprovação com média 6,0.',
   bibliografia: '- Manual de estágio da Unoeste',
 });
+
+// Notificações de exemplo para o sino do aluno1 (as reais nascem nos controllers)
+await Notificacao.create([
+  {
+    usuario: aluno1,
+    tipo: 'nota',
+    mensagem: 'Nota lançada: Prova 1',
+    link: `/turmas/${turma._id}/notas`,
+  },
+  {
+    usuario: aluno1,
+    tipo: 'material',
+    mensagem: 'Novo material no conteúdo da disciplina',
+    link: `/turmas/${turma._id}/conteudo`,
+    lida: true,
+  },
+]);
 
 console.log(`\nSeed concluído. Senha de todos: ${SENHA}`);
 console.table((await Usuario.find().lean()).map(({ email, role }) => ({ email, role })));
