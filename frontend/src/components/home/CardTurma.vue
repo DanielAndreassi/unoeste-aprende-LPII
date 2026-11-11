@@ -34,7 +34,10 @@ defineProps({
         aria-valuemax="100"
         :aria-valuenow="turma.progresso"
       >
-        <div class="h-full rounded-full bg-primary-700" :style="{ width: `${turma.progresso}%` }" />
+        <div
+          class="h-full rounded-full bg-primary-700 dark:bg-primary-400"
+          :style="{ width: `${turma.progresso}%` }"
+        />
       </div>
     </div>
     <p v-else class="mt-4 text-sm text-gray-600 dark:text-gray-400">

@@ -71,7 +71,7 @@ async function abrir(n) {
 
     <div
       v-if="aberto"
-      class="absolute right-0 top-12 z-40 w-[min(22rem,calc(100vw-2rem))] rounded-xl border bg-white shadow-lg dark:bg-gray-900"
+      class="fixed inset-x-4 top-[4.25rem] z-40 rounded-xl border bg-white shadow-lg sm:absolute sm:inset-x-auto sm:right-0 sm:top-12 sm:w-[22rem] dark:bg-gray-900"
     >
       <div class="flex items-center justify-between border-b px-4 py-3">
         <h2 class="text-sm font-medium">Notificações</h2>

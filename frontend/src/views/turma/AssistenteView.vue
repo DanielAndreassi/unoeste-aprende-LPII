@@ -127,7 +127,7 @@ async function confirmarExclusao() {
       eventos da turma, mas não lê o texto dos PDFs.
     </p>
 
-    <div class="mt-6 grid gap-4 lg:grid-cols-[16rem_1fr]">
+    <div class="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-[16rem_1fr]">
       <aside class="rounded-2xl bg-white p-3 shadow-sm dark:bg-gray-900">
         <button
           type="button"
