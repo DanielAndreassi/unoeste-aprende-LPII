@@ -1,6 +1,7 @@
 <script setup>
 // Marca: tile verde chapado com a inicial + nome do produto (sem gradiente).
-defineProps({ pequena: Boolean });
+// compacta: no celular mostra só o tile (o nome volta a partir de sm).
+defineProps({ pequena: Boolean, compacta: Boolean });
 </script>
 
 <template>
@@ -14,7 +15,13 @@ defineProps({ pequena: Boolean });
     >
       A
     </span>
-    <span :class="[pequena ? 'text-sm' : 'text-lg', 'font-medium text-gray-900 dark:text-gray-100']">
+    <span
+      :class="[
+        pequena ? 'text-sm' : 'text-lg',
+        compacta && 'hidden sm:inline',
+        'font-medium text-gray-900 dark:text-gray-100',
+      ]"
+    >
       Aprender Unoeste
     </span>
   </span>

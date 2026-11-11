@@ -25,10 +25,11 @@ async function enviar() {
 
 <template>
   <div v-if="enviado" class="space-y-4 text-sm" role="status">
-    <p>Se o e-mail estiver cadastrado, enviamos um link para redefinir a senha. Ele vale por 30 minutos.</p>
-    <RouterLink :to="{ name: 'login' }" class="link">
-      Voltar ao login
-    </RouterLink>
+    <p>
+      Se o e-mail estiver cadastrado, enviamos um link para redefinir a senha. Ele vale por 30
+      minutos.
+    </p>
+    <RouterLink :to="{ name: 'login' }" class="link"> Voltar ao login </RouterLink>
   </div>
   <form v-else class="space-y-4" @submit.prevent="enviar">
     <p class="text-sm text-gray-600 dark:text-gray-400">
@@ -36,17 +37,11 @@ async function enviar() {
     </p>
     <Campo v-model="email" label="E-mail" type="email" autocomplete="email" required />
     <p v-if="erro" role="alert" class="text-sm text-red-700 dark:text-red-400">{{ erro }}</p>
-    <button
-      type="submit"
-      :disabled="enviando"
-      class="btn-primario w-full"
-    >
+    <button type="submit" :disabled="enviando" class="btn-primario w-full">
       {{ enviando ? 'Enviando…' : 'Enviar link' }}
     </button>
     <p class="text-center text-sm">
-      <RouterLink :to="{ name: 'login' }" class="link">
-        Voltar ao login
-      </RouterLink>
+      <RouterLink :to="{ name: 'login' }" class="link"> Voltar ao login </RouterLink>
     </p>
   </form>
 </template>

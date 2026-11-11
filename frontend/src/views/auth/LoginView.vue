@@ -41,20 +41,11 @@ async function entrar() {
     <Campo v-model="email" label="E-mail" type="email" autocomplete="username" required />
     <Campo v-model="senha" label="Senha" type="password" autocomplete="current-password" required />
     <p v-if="erro" role="alert" class="text-sm text-red-700 dark:text-red-400">{{ erro }}</p>
-    <button
-      type="submit"
-      :disabled="enviando"
-      class="btn-primario w-full"
-    >
+    <button type="submit" :disabled="enviando" class="btn-primario w-full">
       {{ enviando ? 'Entrando…' : 'Entrar' }}
     </button>
     <p class="text-center text-sm">
-      <RouterLink
-        :to="{ name: 'esqueci-senha' }"
-        class="link"
-      >
-        Esqueci minha senha
-      </RouterLink>
+      <RouterLink :to="{ name: 'esqueci-senha' }" class="link"> Esqueci minha senha </RouterLink>
     </p>
   </form>
 </template>

@@ -109,7 +109,9 @@ const classeMsg = (m) =>
         autocomplete="new-password"
         required
       />
-      <p class="text-sm text-gray-500 dark:text-gray-400">Mínimo de 8 caracteres, com letra e número</p>
+      <p class="text-sm text-gray-500 dark:text-gray-400">
+        Mínimo de 8 caracteres, com letra e número
+      </p>
       <p
         v-if="msgSenha.texto"
         :role="msgSenha.tipo === 'erro' ? 'alert' : 'status'"

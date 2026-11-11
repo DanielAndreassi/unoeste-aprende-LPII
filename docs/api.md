@@ -31,10 +31,10 @@ Roteiro de requisições: [backend/requests/auth.http](../backend/requests/auth.
 
 ## Turma do usuário
 
-| Método | Rota                           | Acesso                                                                                                                                                                                                   |
-| ------ | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| GET    | /minhas-turmas?semestre=2/2026 | auth → `{ semestre, semestres, cursos: [{ curso, turmas: [{ _id, codigo, semestre, disciplina, rotulo, progresso (aluno) \| totalAlunos (prof/adm) }] }] }`; sem `semestre` usa o atual; 400 se inválido |
-| GET    | /turmas/:id/participantes      | membro (prof recebe também o % de cada aluno)                                                                                                                                                            |
+| Método | Rota                           | Acesso                                                                                                                                                                                                                      |
+| ------ | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GET    | /minhas-turmas?semestre=2/2026 | auth → `{ semestre, semestres, cursos: [{ curso, turmas: [{ _id, codigo, semestre, disciplina, rotulo, progresso, concluidos, total (aluno) \| totalAlunos (prof/adm) }] }] }`; sem `semestre` usa o atual; 400 se inválido |
+| GET    | /turmas/:id/participantes      | membro (prof recebe também o % de cada aluno)                                                                                                                                                                               |
 
 ## Conteúdo — membro B
 
