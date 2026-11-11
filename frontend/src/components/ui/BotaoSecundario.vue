@@ -7,7 +7,7 @@ defineProps({ perigo: Boolean });
   <button
     type="button"
     :class="[
-      'h-10 rounded-lg px-3 text-sm transition-colors hover:bg-gray-100 disabled:opacity-40 dark:hover:bg-gray-800',
+      'h-11 rounded-lg sm:h-10 px-3 text-sm transition-colors hover:bg-gray-100 disabled:opacity-40 dark:hover:bg-gray-800',
       perigo && 'text-red-700 dark:text-red-400',
     ]"
   >

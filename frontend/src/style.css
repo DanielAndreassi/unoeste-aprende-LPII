@@ -50,7 +50,7 @@
 
 @layer components {
   .btn-primario {
-    @apply inline-flex h-11 items-center justify-center rounded-lg bg-primary-800 px-4 text-sm font-medium text-white transition-colors hover:bg-primary-900 disabled:opacity-60;
+    @apply inline-flex h-11 items-center sm:h-10 justify-center rounded-lg bg-primary-800 px-4 text-sm font-medium text-white transition-colors hover:bg-primary-900 disabled:opacity-60;
   }
   /* Painel: toda superfície que agrupa conteúdo (a borda é o que separa do fundo no tema escuro) */
   .painel {

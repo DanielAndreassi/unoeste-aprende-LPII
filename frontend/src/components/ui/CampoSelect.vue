@@ -17,7 +17,7 @@ const id = `select-${useId()}`;
       v-bind="$attrs"
       :aria-invalid="!!erro"
       :aria-describedby="erro ? `${id}-erro` : undefined"
-      class="h-11 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm transition-colors hover:border-gray-400 focus-visible:border-primary-700 aria-invalid:border-red-600 dark:border-gray-700 dark:bg-gray-900 dark:hover:border-gray-600 dark:focus-visible:border-primary-400"
+      class="h-11 w-full sm:h-10 rounded-lg border border-gray-300 bg-white px-3 text-sm transition-colors hover:border-gray-400 focus-visible:border-primary-700 aria-invalid:border-red-600 dark:border-gray-700 dark:bg-gray-900 dark:hover:border-gray-600 dark:focus-visible:border-primary-400"
     >
       <option v-for="o in opcoes" :key="o.valor" :value="o.valor">{{ o.rotulo }}</option>
     </select>

@@ -210,7 +210,7 @@ const dataCurta = (iso) =>
                 inputmode="decimal"
                 :aria-label="`Nota de ${linha.aluno.nome} em ${a.nome}`"
                 :value="texto(linha, a)"
-                class="h-10 w-20 rounded-lg border border-gray-300 bg-white px-2 text-sm hover:border-gray-400 focus-visible:border-primary-700 dark:border-gray-700 dark:bg-gray-900"
+                class="h-11 w-20 sm:h-10 rounded-lg border border-gray-300 bg-white px-2 text-sm hover:border-gray-400 focus-visible:border-primary-700 dark:border-gray-700 dark:bg-gray-900"
                 @input="rascunho[chave(linha.aluno, a)] = $event.target.value"
               />
               <span v-else>{{ nota(valorAtual(linha, a)) }}</span>
