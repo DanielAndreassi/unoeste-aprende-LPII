@@ -22,7 +22,9 @@ defineProps({
     <div v-if="turma.progresso !== undefined" class="mt-4">
       <div class="flex justify-between text-sm">
         <span>Progresso</span>
-        <span class="font-medium">{{ turma.progresso }}%</span>
+        <span class="font-medium">
+          {{ turma.concluidos }} de {{ turma.total }} · {{ turma.progresso }}%
+        </span>
       </div>
       <div
         class="mt-1 h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700"

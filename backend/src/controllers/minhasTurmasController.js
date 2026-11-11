@@ -75,10 +75,11 @@ export async function listar(req, res) {
       contarPorTurma(Material, ids),
     ]);
     dadosPorTurma = new Map(
-      ids.map((id) => [
-        String(id),
-        { progresso: percentual(concluidos.get(String(id)) ?? 0, totais.get(String(id)) ?? 0) },
-      ]),
+      ids.map((id) => {
+        const feitos = concluidos.get(String(id)) ?? 0;
+        const total = totais.get(String(id)) ?? 0;
+        return [String(id), { progresso: percentual(feitos, total), concluidos: feitos, total }];
+      }),
     );
   } else if (turmas.length) {
     const totalAlunos = await contarPorTurma(Matricula, ids);
