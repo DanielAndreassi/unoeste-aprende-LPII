@@ -14,7 +14,9 @@ defineProps({ pequena: Boolean });
     >
       A
     </span>
-    <span :class="[pequena ? 'text-sm' : 'text-lg', 'font-medium text-gray-900 dark:text-gray-100']">
+    <span
+      :class="[pequena ? 'text-sm' : 'text-lg', 'font-medium text-gray-900 dark:text-gray-100']"
+    >
       Aprender Unoeste
     </span>
   </span>
