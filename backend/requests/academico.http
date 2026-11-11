@@ -1,0 +1,115 @@
+# Roteiro de demonstração: turmas, matrículas, participantes, minhas-turmas e eventos institucionais. Senha do seed: Senha123.
+# Rode antes: docker compose exec backend npm run seed. Troque @turma pelo _id de uma turma (mongosh: db.turmas.findOne()._id).
+@api = http://localhost:3000/api
+@turma = COLE_O_ID_DA_TURMA
+@aluno = COLE_O_ID_DE_UM_ALUNO
+@matricula = COLE_O_ID_DE_UMA_MATRICULA
+
+### Login do admin
+# @name loginAdm
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{ "email": "admin@aprender.local", "senha": "Senha123" }
+
+###
+@tokenAdm = {{loginAdm.response.body.token}}
+
+### Login do professor
+# @name loginProf
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{ "email": "prof1@aprender.local", "senha": "Senha123" }
+
+###
+@tokenProf = {{loginProf.response.body.token}}
+
+### Login do aluno
+# @name loginAluno
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{ "email": "aluno1@aprender.local", "senha": "Senha123" }
+
+###
+@tokenAluno = {{loginAluno.response.body.token}}
+
+### Turma (professor da turma)
+GET {{api}}/turmas/{{turma}}
+Authorization: Bearer {{tokenProf}}
+
+### Turma (aluno sem vínculo, 403)
+GET {{api}}/turmas/{{turma}}
+Authorization: Bearer {{tokenAluno}}
+
+### Listar matrículas (adm)
+GET {{api}}/turmas/{{turma}}/matriculas
+Authorization: Bearer {{tokenAdm}}
+
+### Matricular em lote (adm; já matriculados são ignorados)
+POST {{api}}/turmas/{{turma}}/matriculas
+Authorization: Bearer {{tokenAdm}}
+Content-Type: application/json
+
+{ "alunos": ["{{aluno}}"] }
+
+### Matricular com id que não é aluno ativo (400, nenhuma matrícula gravada)
+POST {{api}}/turmas/{{turma}}/matriculas
+Authorization: Bearer {{tokenAdm}}
+Content-Type: application/json
+
+{ "alunos": ["{{turma}}"] }
+
+### Excluir matrícula (adm, 204)
+DELETE {{api}}/matriculas/{{matricula}}
+Authorization: Bearer {{tokenAdm}}
+
+### Participantes como professor (traz progresso de cada aluno)
+GET {{api}}/turmas/{{turma}}/participantes
+Authorization: Bearer {{tokenProf}}
+
+### Participantes como aluno (sem progresso)
+GET {{api}}/turmas/{{turma}}/participantes
+Authorization: Bearer {{tokenAluno}}
+
+### Minhas turmas do semestre atual (aluno)
+GET {{api}}/minhas-turmas
+Authorization: Bearer {{tokenAluno}}
+
+### Minhas turmas em 2/2026 (professor)
+GET {{api}}/minhas-turmas?semestre=2/2026
+Authorization: Bearer {{tokenProf}}
+
+### Minhas turmas com semestre inválido (400)
+GET {{api}}/minhas-turmas?semestre=3/2026
+Authorization: Bearer {{tokenAdm}}
+
+### Eventos institucionais (qualquer logado)
+GET {{api}}/eventos-institucionais
+Authorization: Bearer {{tokenAluno}}
+
+### Criar evento institucional (adm)
+POST {{api}}/eventos-institucionais
+Authorization: Bearer {{tokenAdm}}
+Content-Type: application/json
+
+{ "titulo": "Semana de provas", "tipo": "prova", "inicio": "2026-11-20T08:00:00-03:00", "fim": "2026-11-21T18:00:00-03:00" }
+
+### Criar evento institucional como aluno (403)
+POST {{api}}/eventos-institucionais
+Authorization: Bearer {{tokenAluno}}
+Content-Type: application/json
+
+{ "titulo": "Teste", "inicio": "2026-11-20T08:00:00-03:00", "fim": "2026-11-20T09:00:00-03:00" }
+
+### Atualizar com fim antes do início (400)
+PUT {{api}}/eventos-institucionais/COLE_O_ID_DO_EVENTO
+Authorization: Bearer {{tokenAdm}}
+Content-Type: application/json
+
+{ "inicio": "2026-11-20T08:00:00-03:00", "fim": "2026-11-19T08:00:00-03:00" }
+
+### Excluir evento institucional (adm, 204)
+DELETE {{api}}/eventos-institucionais/COLE_O_ID_DO_EVENTO
+Authorization: Bearer {{tokenAdm}}

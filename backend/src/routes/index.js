@@ -2,6 +2,11 @@ import { Router } from 'express';
 import auth from '../middlewares/auth.js';
 import authRoutes from './auth.js';
 import perfilRoutes from './perfil.js';
+import conteudoRoutes from './conteudo.js';
+import academicoRoutes from './academico.js';
+import adminRoutes from './admin.js';
+import progressoRoutes from './progresso.js';
+import calendarioRoutes from './calendario.js';
 
 /*
  * Roteador da API. Cada módulo exporta um Router e é registrado aqui.
@@ -21,6 +26,10 @@ router.use(authRoutes);
 // --- daqui para baixo tudo exige login (middleware no nível do router) ---
 router.use(auth);
 router.use(perfilRoutes);
-// router.use(adminRoutes); router.use(conteudoRoutes); ...
+router.use(conteudoRoutes);
+router.use(academicoRoutes);
+router.use(adminRoutes);
+router.use(progressoRoutes);
+router.use(calendarioRoutes);
 
 export default router;

@@ -1,0 +1,163 @@
+# Roteiro de demonstração: administração (usuários, cursos, disciplinas, turmas). Senha do seed: Senha123.
+# Rode antes: docker compose exec backend npm run seed. Troque os @ids pelos _id reais (mongosh: db.cursos.findOne()._id).
+@api = http://localhost:3000/api
+@usuario = COLE_O_ID_DE_UM_USUARIO
+@curso = COLE_O_ID_DE_UM_CURSO
+@disciplina = COLE_O_ID_DE_UMA_DISCIPLINA
+@turma = COLE_O_ID_DE_UMA_TURMA
+@professor = COLE_O_ID_DE_UM_PROFESSOR
+@aluno = COLE_O_ID_DE_UM_ALUNO
+
+### Login do admin
+# @name login
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{ "email": "admin@aprender.local", "senha": "Senha123" }
+
+###
+@token = {{login.response.body.token}}
+
+### --- Usuários ---
+
+### Listar (20 por página; busca por nome ou e-mail)
+GET {{api}}/usuarios?page=1&q=marina
+Authorization: Bearer {{token}}
+
+### Criar usuário sem senha (envia e-mail de boas-vindas com link para definir a senha)
+# @name novoUsuario
+POST {{api}}/usuarios
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "nome": "Ana Souza", "email": "ana.souza@aprender.local", "role": "aluno" }
+
+###
+@novo = {{novoUsuario.response.body._id}}
+
+### Obter usuário
+GET {{api}}/usuarios/{{usuario}}
+Authorization: Bearer {{token}}
+
+### Atualizar (não altera senha; role editável; ativo:true reativa)
+PUT {{api}}/usuarios/{{usuario}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "nome": "Marina Couto", "email": "prof1@aprender.local", "role": "professor", "ativo": true }
+
+### Desativar (204; o usuário não é apagado e não consegue mais logar)
+DELETE {{api}}/usuarios/{{novo}}
+Authorization: Bearer {{token}}
+
+### E-mail duplicado → 409
+POST {{api}}/usuarios
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "nome": "Outra", "email": "prof1@aprender.local", "role": "aluno" }
+
+### Aluno não acessa administração → 403
+# @name loginAluno
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{ "email": "aluno1@aprender.local", "senha": "Senha123" }
+
+###
+GET {{api}}/usuarios
+Authorization: Bearer {{loginAluno.response.body.token}}
+
+### --- Cursos ---
+
+### Listar
+GET {{api}}/cursos
+Authorization: Bearer {{token}}
+
+### Criar
+# @name novoCurso
+POST {{api}}/cursos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "nome": "Engenharia de Software", "sigla": "BACH-ENG-SW" }
+
+### Obter
+GET {{api}}/cursos/{{curso}}
+Authorization: Bearer {{token}}
+
+### Atualizar
+PUT {{api}}/cursos/{{curso}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "nome": "Sistemas de Informação", "sigla": "BACH-PRES-PP" }
+
+### Excluir curso com disciplinas → 409
+DELETE {{api}}/cursos/{{curso}}
+Authorization: Bearer {{token}}
+
+### --- Disciplinas ---
+
+### Listar (com o curso populado)
+GET {{api}}/disciplinas
+Authorization: Bearer {{token}}
+
+### Criar
+POST {{api}}/disciplinas
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "nome": "Programação Web", "curso": "{{curso}}", "cargaHoraria": 80 }
+
+### Atualizar
+PUT {{api}}/disciplinas/{{disciplina}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "nome": "Estágio Supervisionado I", "curso": "{{curso}}", "cargaHoraria": 80 }
+
+### Excluir disciplina com turmas → 409
+DELETE {{api}}/disciplinas/{{disciplina}}
+Authorization: Bearer {{token}}
+
+### --- Turmas ---
+
+### Listar (filtro opcional por semestre)
+GET {{api}}/turmas?semestre=2/2026
+Authorization: Bearer {{token}}
+
+### Criar (professores precisam ter role professor e estar ativos)
+POST {{api}}/turmas
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "disciplina": "{{disciplina}}",
+  "codigo": "7B",
+  "semestre": "2/2026",
+  "professores": ["{{professor}}"]
+}
+
+### Professor com role aluno → 400
+POST {{api}}/turmas
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "disciplina": "{{disciplina}}", "codigo": "7C", "semestre": "2/2026", "professores": ["{{aluno}}"] }
+
+### Atualizar
+PUT {{api}}/turmas/{{turma}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "disciplina": "{{disciplina}}",
+  "codigo": "7A",
+  "semestre": "2/2026",
+  "professores": ["{{professor}}"]
+}
+
+### Excluir turma com matrículas ou conteúdo → 409
+DELETE {{api}}/turmas/{{turma}}
+Authorization: Bearer {{token}}

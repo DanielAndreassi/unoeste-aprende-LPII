@@ -24,28 +24,28 @@ Roteiro de requisições: [backend/requests/auth.http](../backend/requests/auth.
 | GET/POST · GET/PUT/DELETE | /disciplinas · /disciplinas/:id | adm (DELETE 409 se tiver turmas) |
 | GET/POST · PUT/DELETE | /turmas · /turmas/:id | adm (DELETE 409 se tiver matrículas/conteúdo) |
 | GET | /turmas/:id | membro, adm |
-| GET/POST · DELETE | /turmas/:id/matriculas (POST `{ alunos: [ids] }`) · /matriculas/:id | adm |
+| GET/POST · DELETE | /turmas/:id/matriculas (POST `{ alunos: [ids] }` → 201 `{ criadas, ignoradas }`; 400 e nada gravado se algum id não for aluno ativo) · /matriculas/:id (não apaga o progresso) | adm |
 | GET/POST · PUT/DELETE | /eventos-institucionais · /eventos-institucionais/:id | GET auth · resto adm |
 
 ## Turma do usuário
 | Método | Rota | Acesso |
 |---|---|---|
-| GET | /minhas-turmas?semestre=2/2026 | auth (agrupado por curso; % de progresso para aluno) |
+| GET | /minhas-turmas?semestre=2/2026 | auth → `{ semestre, semestres, cursos: [{ curso, turmas: [{ _id, codigo, semestre, disciplina, rotulo, progresso (aluno) \| totalAlunos (prof/adm) }] }] }`; sem `semestre` usa o atual; 400 se inválido |
 | GET | /turmas/:id/participantes | membro (prof recebe também o % de cada aluno) |
 
 ## Conteúdo — membro B
 | Método | Rota | Acesso |
 |---|---|---|
-| GET | /turmas/:id/conteudo (árvore Tópico→Seção→Material + progresso do aluno) | membro |
+| GET | /turmas/:id/conteudo (árvore Tópico→Seção→Material; cada material traz `concluido` para o aluno; o caminho do arquivo em disco nunca é exposto) | membro (admin não) |
 | POST | /turmas/:id/topicos | prof |
-| PUT/DELETE | /topicos/:id | prof (DELETE em cascata) |
+| PUT/DELETE | /topicos/:id `{ titulo }` | prof (DELETE em cascata, 204) |
 | POST | /topicos/:id/secoes | prof |
 | PUT/DELETE | /secoes/:id | prof (DELETE em cascata) |
-| POST | /secoes/:id/materiais (multipart p/ arquivo; JSON p/ link/texto) | prof |
-| GET/PUT/DELETE | /materiais/:id | GET membro · PUT/DELETE prof |
+| POST | /secoes/:id/materiais (multipart p/ `tipo=arquivo`, campo `arquivo`, ≤ 20 MB, extensões do ADR-0015; JSON p/ link/texto) | prof |
+| GET/PUT/DELETE | /materiais/:id | GET membro · PUT/DELETE prof (PUT edita título, descrição, url/conteúdo; não troca `tipo` nem arquivo) |
 | GET | /materiais/:id/download | membro |
 | PUT/DELETE | /materiais/:id/progresso | mat |
-| PATCH | /turmas/:id/conteudo/ordem | prof (reordenar) |
+| PATCH | /turmas/:id/conteudo/ordem `{ nivel: 'topicos'\|'secoes'\|'materiais', pai?, ids: [...] }` | prof (`pai` = id do tópico ou da seção; `ids` = todos os irmãos na nova ordem; 204) |
 
 ## Calendário — membro B
 | Método | Rota | Acesso |
