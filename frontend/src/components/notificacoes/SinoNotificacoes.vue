@@ -62,7 +62,7 @@ async function abrir(n) {
       </svg>
       <span
         v-if="store.naoLidas"
-        class="absolute right-1 top-1 flex min-w-4 items-center justify-center rounded-full bg-red-600 px-1 text-[10px] font-medium leading-4 text-white"
+        class="absolute right-1 top-1 flex min-w-4 items-center justify-center rounded-full bg-red-600 px-1 text-[11px] font-medium leading-4 text-white"
         aria-hidden="true"
       >
         {{ store.naoLidas > 9 ? '9+' : store.naoLidas }}
