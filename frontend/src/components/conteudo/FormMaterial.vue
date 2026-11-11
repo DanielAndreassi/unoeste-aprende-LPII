@@ -71,7 +71,7 @@ async function salvar() {
   <form class="space-y-4" @submit.prevent="salvar">
     <div v-if="!m">
       <label for="tipo-material" class="mb-1 block text-sm font-medium">Tipo</label>
-      <select id="tipo-material" v-model="tipo" :class="[entrada, 'h-11']">
+      <select id="tipo-material" v-model="tipo" :class="[entrada, 'h-11 sm:h-10']">
         <option value="link">Link</option>
         <option value="arquivo">Arquivo</option>
         <option value="texto">Texto</option>
@@ -120,7 +120,7 @@ async function salvar() {
         id="arquivo-material"
         type="file"
         accept=".pdf,.zip,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.png,.jpg"
-        class="block w-full text-sm file:mr-3 file:h-10 file:rounded-lg file:border-0 file:bg-gray-100 file:px-4 file:text-sm file:font-medium file:transition-colors hover:file:bg-gray-200 dark:file:bg-gray-800 dark:hover:file:bg-gray-700"
+        class="block w-full text-sm file:mr-3 file:h-11 sm:file:h-10 file:rounded-lg file:border-0 file:bg-gray-100 file:px-4 file:text-sm file:font-medium file:transition-colors hover:file:bg-gray-200 dark:file:bg-gray-800 dark:hover:file:bg-gray-700"
         @change="arquivo = $event.target.files[0] ?? null"
       />
       <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">

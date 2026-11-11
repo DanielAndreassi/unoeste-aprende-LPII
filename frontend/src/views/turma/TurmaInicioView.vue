@@ -15,7 +15,7 @@ const erro = ref('');
 
 const atalhos = [
   ['Conteúdo', 'conteudo'],
-  ['Plano de Ensino', 'plano'],
+  ['Plano de ensino', 'plano'],
   ['Notas', 'notas'],
   ['Assistente IA', 'assistente'],
 ];
@@ -39,7 +39,7 @@ carregar();
   <section>
     <p v-if="erro" role="alert" class="text-sm text-red-700 dark:text-red-400">{{ erro }}</p>
     <template v-if="turma">
-      <h1 class="text-2xl font-medium">{{ turma.disciplina.nome }}</h1>
+      <h1 class="titulo-pagina">{{ turma.disciplina.nome }}</h1>
       <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
         Turma {{ turma.codigo }} · {{ turma.semestre }}
       </p>

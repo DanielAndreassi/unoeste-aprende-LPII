@@ -25,7 +25,7 @@ const visivel = ref(false);
         :aria-invalid="!!erro"
         :aria-describedby="erro ? `${id}-erro` : undefined"
         :class="[
-          'h-11 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm transition-colors hover:border-gray-400 focus-visible:border-primary-700 dark:border-gray-700 dark:bg-gray-900 dark:hover:border-gray-600 dark:focus-visible:border-primary-400 aria-invalid:border-red-600',
+          'h-11 w-full sm:h-10 rounded-lg border border-gray-300 bg-white px-3 text-sm transition-colors hover:border-gray-400 focus-visible:border-primary-700 dark:border-gray-700 dark:bg-gray-900 dark:hover:border-gray-600 dark:focus-visible:border-primary-400 aria-invalid:border-red-600',
           senha && 'pr-11',
         ]"
       />

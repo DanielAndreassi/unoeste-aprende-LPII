@@ -145,7 +145,7 @@ const dataCurta = (iso) =>
 <template>
   <section>
     <div class="flex flex-wrap items-center justify-between gap-2">
-      <h1 class="text-2xl font-medium">Notas</h1>
+      <h1 class="titulo-pagina">Notas</h1>
       <button v-if="professor" type="button" class="btn-primario" @click="nova">
         Nova avaliação
       </button>
@@ -157,10 +157,7 @@ const dataCurta = (iso) =>
 
     <p v-if="erro" role="alert" class="mt-4 text-sm text-red-700 dark:text-red-400">{{ erro }}</p>
 
-    <div
-      class="mt-6 overflow-x-auto rounded-2xl bg-white p-4 shadow-sm sm:p-6 dark:bg-gray-900"
-      :aria-busy="carregando"
-    >
+    <div class="painel mt-6 overflow-x-auto p-4 sm:p-6" :aria-busy="carregando">
       <p v-if="!carregando && !tabela.avaliacoes.length" class="text-sm">
         {{
           professor
@@ -169,7 +166,7 @@ const dataCurta = (iso) =>
         }}
       </p>
 
-      <table v-else-if="tabela.avaliacoes.length" class="w-full min-w-max text-sm">
+      <table v-else-if="tabela.avaliacoes.length" class="w-full min-w-max text-sm tabular-nums">
         <thead>
           <tr class="border-b border-gray-200 text-left dark:border-gray-700">
             <th scope="col" class="py-2 pr-4 font-medium">Aluno</th>
@@ -184,10 +181,10 @@ const dataCurta = (iso) =>
                 peso {{ nota(a.peso) }}<template v-if="a.data"> · {{ dataCurta(a.data) }}</template>
               </div>
               <div v-if="professor" class="mt-1 flex gap-1">
-                <BotaoSecundario class="border !h-8 !px-2 text-xs" @click="editar(a)"
+                <BotaoSecundario class="border !px-2 text-xs sm:!h-8" @click="editar(a)"
                   >Editar</BotaoSecundario
                 >
-                <BotaoSecundario perigo class="!h-8 !px-2 text-xs" @click="pedirExcluir(a)"
+                <BotaoSecundario perigo class="!px-2 text-xs sm:!h-8" @click="pedirExcluir(a)"
                   >Excluir</BotaoSecundario
                 >
               </div>
@@ -213,7 +210,7 @@ const dataCurta = (iso) =>
                 inputmode="decimal"
                 :aria-label="`Nota de ${linha.aluno.nome} em ${a.nome}`"
                 :value="texto(linha, a)"
-                class="h-10 w-20 rounded-lg border border-gray-300 bg-white px-2 text-sm hover:border-gray-400 focus-visible:border-primary-700 dark:border-gray-700 dark:bg-gray-900"
+                class="h-11 w-20 sm:h-10 rounded-lg border border-gray-300 bg-white px-2 text-sm hover:border-gray-400 focus-visible:border-primary-700 dark:border-gray-700 dark:bg-gray-900"
                 @input="rascunho[chave(linha.aluno, a)] = $event.target.value"
               />
               <span v-else>{{ nota(valorAtual(linha, a)) }}</span>

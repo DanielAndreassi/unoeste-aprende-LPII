@@ -15,7 +15,7 @@ participantes(useRoute().params.id)
 
 <template>
   <section>
-    <h1 class="text-2xl font-medium">Professores</h1>
+    <h1 class="titulo-pagina">Professores</h1>
     <p v-if="erro" role="alert" class="mt-4 text-sm text-red-700 dark:text-red-400">{{ erro }}</p>
     <p
       v-else-if="professores && !professores.length"

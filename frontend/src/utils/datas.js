@@ -77,3 +77,20 @@ export function rotuloDia(chave) {
     timeZone: 'UTC',
   }).format(new Date(`${chave}T12:00:00Z`));
 }
+
+// "16:00" em São Paulo
+export function hora(iso) {
+  return new Intl.DateTimeFormat('pt-BR', { timeStyle: 'short', timeZone: FUSO }).format(
+    new Date(iso),
+  );
+}
+
+// chave AAAA-MM-DD → "qui., 12 de nov."
+export function diaCurto(chave) {
+  return new Intl.DateTimeFormat('pt-BR', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short',
+    timeZone: 'UTC',
+  }).format(new Date(`${chave}T12:00:00Z`));
+}

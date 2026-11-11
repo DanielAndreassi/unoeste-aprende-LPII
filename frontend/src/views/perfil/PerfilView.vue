@@ -53,7 +53,7 @@ const classeMsg = (m) =>
 
 <template>
   <main class="mx-auto max-w-3xl px-4 py-8">
-    <h1 class="text-2xl font-medium">Meu perfil</h1>
+    <h1 class="titulo-pagina">Meu perfil</h1>
 
     <form
       class="mt-6 grid gap-6 rounded-xl border bg-white p-6 shadow-sm sm:grid-cols-[192px_1fr] dark:bg-gray-900"
@@ -76,7 +76,7 @@ const classeMsg = (m) =>
             id="avatar"
             type="file"
             accept="image/jpeg,image/png,image/webp"
-            class="block w-full text-sm file:mr-3 file:h-10 file:rounded-lg file:border-0 file:bg-gray-100 file:px-4 file:text-sm file:font-medium file:transition-colors hover:file:bg-gray-200 dark:file:bg-gray-800 dark:hover:file:bg-gray-700"
+            class="block w-full text-sm file:mr-3 file:h-11 sm:file:h-10 file:rounded-lg file:border-0 file:bg-gray-100 file:px-4 file:text-sm file:font-medium file:transition-colors hover:file:bg-gray-200 dark:file:bg-gray-800 dark:hover:file:bg-gray-700"
             @change="arquivo = $event.target.files[0] ?? null"
           />
           <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">jpg, png ou webp, até 2 MB</p>

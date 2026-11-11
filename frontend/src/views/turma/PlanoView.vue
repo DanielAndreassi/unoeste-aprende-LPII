@@ -56,7 +56,7 @@ async function salvar() {
 <template>
   <section>
     <div class="flex flex-wrap items-center justify-between gap-2">
-      <h1 class="text-2xl font-medium">Plano de Ensino</h1>
+      <h1 class="titulo-pagina">Plano de ensino</h1>
       <button
         v-if="professor && plano && !editando"
         type="button"
@@ -89,11 +89,7 @@ async function salvar() {
     </form>
 
     <div v-else-if="plano" class="mt-6 space-y-4">
-      <article
-        v-for="[campo, rotulo] in SECOES"
-        :key="campo"
-        class="rounded-2xl bg-white p-5 shadow-sm dark:bg-gray-900"
-      >
+      <article v-for="[campo, rotulo] in SECOES" :key="campo" class="painel p-5">
         <h2 class="text-lg font-medium">{{ rotulo }}</h2>
         <MarkdownView v-if="plano[campo]?.trim()" :conteudo="plano[campo]" class="mt-2" />
         <p v-else class="mt-2 text-sm text-gray-600 dark:text-gray-400">Não informado.</p>

@@ -19,7 +19,7 @@ const itens = [
   ['Professores', 'professores'],
   ['Participantes', 'participantes'],
   ['Calendário', 'calendario'],
-  ['Plano de Ensino', 'plano'],
+  ['Plano de ensino', 'plano'],
   ['Notas', 'notas'],
   ['Assistente IA', 'assistente'],
 ];
@@ -46,7 +46,7 @@ const itens = [
       id="menu-turma"
       :class="[
         'fixed inset-y-0 left-0 z-40 w-64 overflow-y-auto bg-white p-4 shadow-xl transition-transform dark:bg-gray-900',
-        'lg:static lg:z-auto lg:translate-x-0 lg:rounded-2xl lg:shadow-sm',
+        'lg:static lg:z-auto lg:translate-x-0 lg:rounded-xl lg:border lg:shadow-sm',
         menuAberto ? 'translate-x-0' : '-translate-x-full',
       ]"
     >
@@ -55,8 +55,8 @@ const itens = [
           <li v-for="[rotulo, caminho] in itens" :key="caminho">
             <RouterLink
               :to="`/turmas/${route.params.id}/${caminho}`"
-              class="block rounded-lg px-3 py-2 text-sm hover:bg-primary-50 dark:hover:bg-gray-800"
-              exact-active-class="bg-primary-100 font-semibold text-primary-900 dark:bg-gray-800 dark:text-primary-300"
+              class="block rounded-lg px-3 py-3 text-sm lg:py-2 hover:bg-primary-50 dark:hover:bg-gray-800"
+              exact-active-class="bg-primary-100 font-medium text-primary-900 dark:bg-gray-800 dark:text-primary-300"
             >
               {{ rotulo }}
             </RouterLink>

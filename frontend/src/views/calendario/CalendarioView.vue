@@ -51,7 +51,7 @@ onMounted(async () => {
   <div class="mx-auto max-w-7xl px-4 py-6">
     <div class="flex flex-wrap items-end justify-between gap-4">
       <div>
-        <h1 class="text-2xl font-medium">Calendário</h1>
+        <h1 class="titulo-pagina">Calendário</h1>
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
           Eventos das suas turmas e os institucionais. Horários em São Paulo.
         </p>
@@ -63,7 +63,7 @@ onMounted(async () => {
 
     <p v-if="erro" role="alert" class="mt-4 text-sm text-red-700 dark:text-red-400">{{ erro }}</p>
 
-    <div class="mt-6 rounded-2xl bg-white p-4 shadow-sm sm:p-6 dark:bg-gray-900">
+    <div class="painel mt-6 p-4 sm:p-6">
       <CalendarioMes :eventos="eventos" @periodo="mudouPeriodo" />
     </div>
   </div>

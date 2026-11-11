@@ -132,7 +132,7 @@ function sair() {
             v-for="l in linksAdmin"
             :key="l.to"
             :to="{ name: l.to }"
-            class="flex h-11 shrink-0 items-center rounded-lg px-3 text-sm text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 aria-[current=page]:font-medium aria-[current=page]:text-primary-800 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-100 dark:aria-[current=page]:text-primary-300"
+            class="flex h-11 shrink-0 items-center sm:h-10 rounded-lg px-3 text-sm text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 aria-[current=page]:font-medium aria-[current=page]:text-primary-800 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-100 dark:aria-[current=page]:text-primary-300"
           >
             {{ l.rotulo }}
           </RouterLink>

@@ -62,7 +62,7 @@ async function abrir(n) {
       </svg>
       <span
         v-if="store.naoLidas"
-        class="absolute right-1 top-1 flex min-w-4 items-center justify-center rounded-full bg-red-600 px-1 text-[10px] font-medium leading-4 text-white"
+        class="absolute right-1 top-1 flex min-w-4 items-center justify-center rounded-full bg-red-600 px-1 text-[11px] font-medium leading-4 text-white"
         aria-hidden="true"
       >
         {{ store.naoLidas > 9 ? '9+' : store.naoLidas }}
@@ -111,11 +111,22 @@ async function abrir(n) {
           </button>
           <button
             type="button"
-            class="mr-2 mt-2 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800"
+            class="mr-2 mt-2 flex h-11 w-11 shrink-0 sm:h-8 sm:w-8 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800"
             aria-label="Excluir notificação"
             @click="store.excluir(n)"
           >
-            ×
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
           </button>
         </li>
       </ul>

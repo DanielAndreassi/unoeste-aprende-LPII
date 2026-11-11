@@ -123,29 +123,55 @@ function navegarTeclado(ev) {
 </script>
 
 <template>
-  <div>
-    <div class="flex flex-wrap items-center justify-between gap-2">
-      <div class="flex items-center gap-1">
-        <BotaoSecundario aria-label="Mês anterior" class="border" @click="mudarMes(-1)"
-          >‹</BotaoSecundario
-        >
-        <h2 class="min-w-44 text-center text-lg font-medium" aria-live="polite">{{ rotulo }}</h2>
-        <BotaoSecundario aria-label="Próximo mês" class="border" @click="mudarMes(1)"
-          >›</BotaoSecundario
-        >
-      </div>
+  <div class="@container">
+    <div class="flex items-center gap-1">
+      <h2 class="min-w-0 flex-1 truncate text-base font-medium" aria-live="polite">{{ rotulo }}</h2>
+      <BotaoSecundario aria-label="Mês anterior" class="w-10 px-0" @click="mudarMes(-1)">
+        <span class="flex justify-center">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+        </span>
+      </BotaoSecundario>
+      <BotaoSecundario aria-label="Próximo mês" class="w-10 px-0" @click="mudarMes(1)">
+        <span class="flex justify-center">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </span>
+      </BotaoSecundario>
       <BotaoSecundario class="border" @click="irHoje">Hoje</BotaoSecundario>
     </div>
 
     <ul class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-600 dark:text-gray-400">
-      <li v-for="(t, valor) in TIPOS" :key="valor" class="flex items-center gap-1.5">
-        <span :class="['size-2.5 rounded-full', t.ponto]" aria-hidden="true" />{{ t.rotulo }}
+      <li v-for="(t, valor) in TIPOS" :key="valor" class="flex items-center gap-2">
+        <span :class="['size-2 rounded-full', t.ponto]" aria-hidden="true" />{{ t.rotulo }}
       </li>
-      <li class="flex items-center gap-1.5">
-        <span class="size-2.5 rounded-full bg-green-600" aria-hidden="true" />Início
+      <li class="flex items-center gap-2">
+        <span class="size-2 rounded-full border-2 border-current" aria-hidden="true" />Início
       </li>
-      <li class="flex items-center gap-1.5">
-        <span class="size-2.5 rounded-full bg-red-600" aria-hidden="true" />Fim
+      <li class="flex items-center gap-2">
+        <span class="size-2 rounded-full bg-current" aria-hidden="true" />Fim
       </li>
     </ul>
 
@@ -168,7 +194,7 @@ function navegarTeclado(ev) {
         v-for="(k, i) in grade"
         :key="k"
         :class="[
-          'flex min-w-0 flex-col gap-1 bg-white p-1 md:min-h-32 md:p-1.5 dark:bg-gray-900',
+          'flex min-w-0 flex-col gap-1 bg-white p-1 @2xl:min-h-32 @2xl:p-2 dark:bg-gray-900',
           k.slice(0, 7) !== prefixo && 'text-gray-400 dark:text-gray-600',
         ]"
       >
@@ -178,8 +204,8 @@ function navegarTeclado(ev) {
           :aria-label="rotuloCelula(k)"
           :aria-current="k === hoje ? 'date' : undefined"
           :class="[
-            'flex h-8 w-8 items-center justify-center self-center rounded-full text-sm md:self-start',
-            k === hoje && 'bg-primary-800 font-semibold text-white dark:bg-primary-600',
+            'flex h-8 w-8 items-center justify-center self-center rounded-full text-sm tabular-nums @2xl:self-start',
+            k === hoje && 'bg-primary-800 font-medium text-white dark:bg-primary-600',
             k === diaSel && k !== hoje && 'ring-2 ring-primary-600',
           ]"
           @click="abrirDia(k)"
@@ -188,7 +214,7 @@ function navegarTeclado(ev) {
         </button>
 
         <!-- Desktop: chips coloridos por tipo -->
-        <div class="hidden min-w-0 flex-col gap-1 md:flex">
+        <div class="hidden min-w-0 flex-col gap-1 @2xl:flex">
           <button
             v-for="it in itensDia(k).slice(0, MAX_CHIPS)"
             :key="it.e._id"
@@ -203,12 +229,12 @@ function navegarTeclado(ev) {
           >
             <span
               v-if="it.ini"
-              class="size-2 shrink-0 rounded-full bg-green-600"
+              class="size-2 shrink-0 rounded-full border-2 border-current"
               aria-hidden="true"
             />
             <span
               v-if="it.fim"
-              class="size-2 shrink-0 rounded-full bg-red-600"
+              class="size-2 shrink-0 rounded-full bg-current"
               aria-hidden="true"
             />
             <span class="min-w-0 truncate">{{ it.e.titulo }}</span>
@@ -224,7 +250,7 @@ function navegarTeclado(ev) {
         </div>
 
         <!-- Mobile: só bolinhas; a lista do dia aparece embaixo -->
-        <div class="flex gap-0.5 md:hidden" aria-hidden="true">
+        <div class="flex gap-0.5 @2xl:hidden" aria-hidden="true">
           <span
             v-for="it in itensDia(k).slice(0, MAX_CHIPS)"
             :key="it.e._id"
@@ -234,7 +260,7 @@ function navegarTeclado(ev) {
       </div>
     </div>
 
-    <section class="mt-4 md:hidden" aria-labelledby="calendario-dia-sel">
+    <section class="mt-4 @2xl:hidden" aria-labelledby="calendario-dia-sel">
       <h3 id="calendario-dia-sel" class="font-medium">{{ rotuloDia(diaSel) }}</h3>
       <ul v-if="itensDia(diaSel).length" class="mt-2 space-y-2">
         <li v-for="it in itensDia(diaSel)" :key="it.e._id">
@@ -244,7 +270,7 @@ function navegarTeclado(ev) {
             @click="abrirEvento(it.e)"
           >
             <span
-              :class="['size-2.5 shrink-0 rounded-full', infoTipo(it.e.tipo).ponto]"
+              :class="['size-2 shrink-0 rounded-full', infoTipo(it.e.tipo).ponto]"
               aria-hidden="true"
             />
             <span class="min-w-0 flex-1 truncate">{{ it.e.titulo }}</span>

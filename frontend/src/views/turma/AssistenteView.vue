@@ -121,14 +121,14 @@ async function confirmarExclusao() {
 
 <template>
   <section>
-    <h1 class="text-2xl font-medium">Assistente IA</h1>
+    <h1 class="titulo-pagina">Assistente IA</h1>
     <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
       Tire dúvidas sobre esta disciplina. O assistente usa o plano de ensino, o conteúdo e os
       eventos da turma, mas não lê o texto dos PDFs.
     </p>
 
     <div class="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-[16rem_1fr]">
-      <aside class="rounded-2xl bg-white p-3 shadow-sm dark:bg-gray-900">
+      <aside class="painel p-3">
         <button
           type="button"
           class="btn-primario w-full"
@@ -142,7 +142,7 @@ async function confirmarExclusao() {
         </button>
         <button
           type="button"
-          class="mt-2 w-full rounded-lg px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 lg:hidden dark:text-gray-300 dark:hover:bg-gray-800"
+          class="mt-2 h-11 w-full rounded-lg px-3 text-left text-sm text-gray-700 hover:bg-gray-100 lg:hidden dark:text-gray-300 dark:hover:bg-gray-800"
           :aria-expanded="mostrarLista"
           aria-controls="lista-conversas"
           @click="mostrarLista = !mostrarLista"
@@ -162,9 +162,9 @@ async function confirmarExclusao() {
               :disabled="enviando"
               :aria-current="atual?._id === c._id"
               :class="[
-                'w-full truncate rounded-lg px-3 py-2 text-left text-sm hover:bg-primary-50 dark:hover:bg-gray-800',
+                'h-11 w-full truncate rounded-lg px-3 text-left text-sm sm:h-10 hover:bg-primary-50 dark:hover:bg-gray-800',
                 atual?._id === c._id &&
-                  'bg-primary-100 font-semibold text-primary-900 dark:bg-gray-800 dark:text-primary-300',
+                  'bg-primary-100 font-medium text-primary-900 dark:bg-gray-800 dark:text-primary-300',
               ]"
               @click="abrir(c)"
             >
@@ -180,7 +180,7 @@ async function confirmarExclusao() {
         </p>
       </aside>
 
-      <div class="flex min-h-[28rem] flex-col rounded-2xl bg-white p-4 shadow-sm dark:bg-gray-900">
+      <div class="painel flex min-h-[28rem] flex-col p-4">
         <div v-if="atual" class="mb-2 flex items-center justify-between gap-3">
           <h2 class="truncate text-sm font-medium">{{ atual.titulo }}</h2>
           <BotaoSecundario perigo :disabled="enviando" @click="modalExcluir = true">
@@ -198,7 +198,7 @@ async function confirmarExclusao() {
                 v-for="s in SUGESTOES"
                 :key="s"
                 type="button"
-                class="rounded-full border border-gray-300 px-3 py-1.5 text-sm hover:bg-primary-50 dark:border-gray-700 dark:hover:bg-gray-800"
+                class="min-h-11 rounded-full border border-gray-300 px-4 py-2 text-sm sm:min-h-10 hover:bg-primary-50 dark:border-gray-700 dark:hover:bg-gray-800"
                 @click="sugerir(s)"
               >
                 {{ s }}

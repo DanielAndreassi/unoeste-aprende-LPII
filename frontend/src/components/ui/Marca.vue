@@ -1,20 +1,12 @@
 <script setup>
-// Marca: tile verde chapado com a inicial + nome do produto (sem gradiente).
+// Marca: ícone da Unoeste (public/titulo.png, o mesmo do favicon) + nome do produto.
 // compacta: no celular mostra só o tile (o nome volta a partir de sm).
 defineProps({ pequena: Boolean, compacta: Boolean });
 </script>
 
 <template>
   <span class="inline-flex items-center gap-3">
-    <span
-      aria-hidden="true"
-      :class="[
-        pequena ? 'h-6 w-6 rounded-md text-base' : 'h-8 w-8 rounded-lg text-xl',
-        'inline-flex items-center justify-center bg-primary-800 font-serif leading-none text-white',
-      ]"
-    >
-      A
-    </span>
+    <img src="/titulo.png" alt="" :class="pequena ? 'h-6 w-6 rounded-md' : 'h-8 w-8 rounded-lg'" />
     <span
       :class="[
         pequena ? 'text-sm' : 'text-lg',
