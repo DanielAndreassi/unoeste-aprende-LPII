@@ -11,6 +11,10 @@ import Matricula from './models/Matricula.js';
 import Topico from './models/Topico.js';
 import Secao from './models/Secao.js';
 import Material from './models/Material.js';
+import Avaliacao from './models/Avaliacao.js';
+import Nota from './models/Nota.js';
+import PlanoEnsino from './models/PlanoEnsino.js';
+import Notificacao from './models/Notificacao.js';
 import { MATERIAIS_DIR } from './config/uploads.js';
 import { semestreAtual } from './utils/semestre.js';
 
@@ -83,6 +87,43 @@ await Material.create([
     tipo: 'texto',
     conteudo: '## Passos\n\n1. Escreva o relatório\n2. Revise com o orientador\n3. Entregue em PDF',
     ordem: 2,
+  },
+]);
+
+// Notas de exemplo: aluno1 com tudo lançado; aluno2 sem notas (Em andamento)
+const [prova, trabalho] = await Avaliacao.create([
+  { turma, nome: 'Prova 1', peso: 3, data: new Date(Date.now() - 7 * 864e5) },
+  { turma, nome: 'Trabalho final', peso: 2, data: new Date(Date.now() + 14 * 864e5) },
+]);
+await Nota.create([
+  { avaliacao: prova, aluno: aluno1, valor: 8 },
+  { avaliacao: trabalho, aluno: aluno1, valor: 6.5 },
+]);
+
+await PlanoEnsino.create({
+  turma,
+  ementa: 'Acompanhamento das atividades de estágio supervisionado em Sistemas de Informação.',
+  objetivos:
+    '- Aplicar conhecimentos do curso em ambiente real\n- Produzir o relatório final de estágio',
+  conteudoProgramatico: '1. Plano de estágio\n2. Reuniões de orientação\n3. Relatório final',
+  avaliacao: 'Prova 1 (peso 3) e trabalho final (peso 2). Aprovação com média 6,0.',
+  bibliografia: '- Manual de estágio da Unoeste',
+});
+
+// Notificações de exemplo para o sino do aluno1 (as reais nascem nos controllers)
+await Notificacao.create([
+  {
+    usuario: aluno1,
+    tipo: 'nota',
+    mensagem: 'Nota lançada: Prova 1',
+    link: `/turmas/${turma._id}/notas`,
+  },
+  {
+    usuario: aluno1,
+    tipo: 'material',
+    mensagem: 'Novo material no conteúdo da disciplina',
+    link: `/turmas/${turma._id}/conteudo`,
+    lida: true,
   },
 ]);
 

@@ -4,6 +4,7 @@ import { useAuthStore } from '../stores/auth';
 import { useTemaStore } from '../stores/tema';
 import Avatar from '../components/ui/Avatar.vue';
 import Marca from '../components/ui/Marca.vue';
+import SinoNotificacoes from '../components/notificacoes/SinoNotificacoes.vue';
 
 const auth = useAuthStore();
 const tema = useTemaStore();
@@ -28,22 +29,43 @@ function sair() {
 <template>
   <div class="min-h-screen">
     <header class="sticky top-0 z-30 border-b bg-white dark:bg-gray-900">
-      <div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4">
+      <div class="mx-auto flex h-16 max-w-7xl items-center gap-2 px-4 sm:gap-4">
         <RouterLink :to="{ name: 'home' }" aria-label="Aprender Unoeste, início">
-          <Marca />
+          <Marca compacta />
         </RouterLink>
         <template v-if="auth.role">
-          <span class="h-4 w-px bg-gray-900/10 dark:bg-white/10" aria-hidden="true" />
-          <span class="text-sm text-gray-500 dark:text-gray-400">{{ rotulos[auth.role] }}</span>
+          <span
+            class="hidden h-4 w-px bg-gray-900/10 sm:block dark:bg-white/10"
+            aria-hidden="true"
+          />
+          <span class="hidden text-sm text-gray-500 sm:inline dark:text-gray-400">{{
+            rotulos[auth.role]
+          }}</span>
         </template>
 
         <div class="ml-auto flex items-center gap-2">
-          <!-- O sino de notificações entra aqui (13/11) -->
+          <SinoNotificacoes v-if="auth.role === 'aluno'" />
           <RouterLink
             :to="{ name: 'calendario' }"
-            class="flex h-10 items-center rounded-lg px-3 text-sm transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
+            class="flex h-10 w-10 items-center justify-center rounded-lg text-sm transition-colors hover:bg-gray-100 sm:w-auto sm:px-3 dark:hover:bg-gray-800"
+            aria-label="Calendário"
           >
-            Calendário
+            <svg
+              class="sm:hidden"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="3" y="4" width="18" height="18" rx="2" />
+              <path d="M16 2v4M8 2v4M3 10h18" />
+            </svg>
+            <span class="hidden sm:inline">Calendário</span>
           </RouterLink>
           <RouterLink
             :to="{ name: 'perfil' }"

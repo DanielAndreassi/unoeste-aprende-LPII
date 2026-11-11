@@ -39,7 +39,13 @@ async function salvar() {
       {{ primeiraSenha ? 'Defina sua senha para entrar.' : 'Escolha uma nova senha.' }}
       Mínimo de 8 caracteres, com letra e número.
     </p>
-    <Campo v-model="senha" label="Nova senha" type="password" autocomplete="new-password" required />
+    <Campo
+      v-model="senha"
+      label="Nova senha"
+      type="password"
+      autocomplete="new-password"
+      required
+    />
     <Campo
       v-model="confirmacao"
       label="Confirmar senha"
@@ -48,18 +54,12 @@ async function salvar() {
       required
     />
     <p v-if="erro" role="alert" class="text-sm text-red-700 dark:text-red-400">{{ erro }}</p>
-    <button
-      type="submit"
-      :disabled="enviando"
-      class="btn-primario w-full"
-    >
+    <button type="submit" :disabled="enviando" class="btn-primario w-full">
       {{ enviando ? 'Salvando…' : 'Salvar senha' }}
     </button>
   </form>
   <p v-else role="alert" class="text-sm">
     Link inválido
-    <RouterLink :to="{ name: 'esqueci-senha' }" class="link">
-      Solicitar novo link
-    </RouterLink>
+    <RouterLink :to="{ name: 'esqueci-senha' }" class="link"> Solicitar novo link </RouterLink>
   </p>
 </template>

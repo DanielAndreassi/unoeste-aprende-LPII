@@ -27,6 +27,7 @@
 
 ## Notificações
 - Recebe só o **aluno**: novo material, novo evento e nota lançada ou alterada, das turmas em que está matriculado.
+- Nota só notifica quando é criada ou muda de valor (apagar não notifica); aluno inativo não recebe; evento institucional não notifica.
 - Não há e-mail para notificações. O front consulta o servidor (polling) a cada 60 s.
 
 ## Perfil

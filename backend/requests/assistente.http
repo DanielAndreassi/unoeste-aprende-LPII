@@ -1,0 +1,58 @@
+# Roteiro: plano de ensino e assistente IA. Senha do seed: Senha123. Precisa de GEMINI_API_KEY no backend/.env para a IA responder.
+@api = http://localhost:3000/api
+@turma = COLE_O_ID_DA_TURMA
+@conversa = COLE_O_ID_DA_CONVERSA
+
+### Login do aluno
+# @name loginAluno
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{ "email": "aluno1@aprender.local", "senha": "Senha123" }
+
+###
+@tokenAluno = {{loginAluno.response.body.token}}
+
+### Login do professor
+# @name loginProf
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{ "email": "prof1@aprender.local", "senha": "Senha123" }
+
+###
+@tokenProf = {{loginProf.response.body.token}}
+
+### Plano de ensino (membro)
+GET {{api}}/turmas/{{turma}}/plano
+Authorization: Bearer {{tokenAluno}}
+
+### Professor edita o plano (aluno recebe 403)
+PUT {{api}}/turmas/{{turma}}/plano
+Authorization: Bearer {{tokenProf}}
+Content-Type: application/json
+
+{ "ementa": "Nova ementa em **Markdown**" }
+
+### Aluno cria conversa
+POST {{api}}/turmas/{{turma}}/conversas
+Authorization: Bearer {{tokenAluno}}
+
+### Aluno pergunta
+POST {{api}}/conversas/{{conversa}}/mensagens
+Authorization: Bearer {{tokenAluno}}
+Content-Type: application/json
+
+{ "texto": "Como entrego o relatório do estágio?" }
+
+### Lista as conversas do aluno
+GET {{api}}/turmas/{{turma}}/conversas
+Authorization: Bearer {{tokenAluno}}
+
+### Erro esperado (404): professor abrindo conversa do aluno
+GET {{api}}/conversas/{{conversa}}
+Authorization: Bearer {{tokenProf}}
+
+### Aluno exclui a conversa
+DELETE {{api}}/conversas/{{conversa}}
+Authorization: Bearer {{tokenAluno}}
