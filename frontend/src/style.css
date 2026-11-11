@@ -56,6 +56,9 @@
   .painel {
     @apply rounded-xl border bg-white shadow-sm dark:bg-gray-900;
   }
+  .titulo-pagina {
+    @apply text-2xl font-medium sm:text-3xl;
+  }
   .link {
     @apply text-primary-800 underline underline-offset-2 transition-colors hover:text-primary-900 dark:text-primary-300 dark:hover:text-primary-200;
   }

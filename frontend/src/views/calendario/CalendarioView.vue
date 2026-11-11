@@ -51,7 +51,7 @@ onMounted(async () => {
   <div class="mx-auto max-w-7xl px-4 py-6">
     <div class="flex flex-wrap items-end justify-between gap-4">
       <div>
-        <h1 class="text-2xl font-medium">Calendário</h1>
+        <h1 class="titulo-pagina">Calendário</h1>
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
           Eventos das suas turmas e os institucionais. Horários em São Paulo.
         </p>

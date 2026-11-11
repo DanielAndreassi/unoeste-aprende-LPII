@@ -52,7 +52,7 @@ onMounted(async () => {
 
 <template>
   <section>
-    <h1 class="text-2xl font-medium">Administração</h1>
+    <h1 class="titulo-pagina">Administração</h1>
     <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
       Cadastros da instituição. Escolha uma área para gerenciar.
     </p>

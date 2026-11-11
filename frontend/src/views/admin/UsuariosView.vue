@@ -99,7 +99,7 @@ onMounted(carregar);
 <template>
   <section>
     <div class="flex flex-wrap items-center justify-between gap-2">
-      <h1 class="text-2xl font-medium">Usuários</h1>
+      <h1 class="titulo-pagina">Usuários</h1>
       <button type="button" class="btn-primario" @click="novo">Novo usuário</button>
     </div>
 

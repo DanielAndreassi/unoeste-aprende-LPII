@@ -121,7 +121,7 @@ async function confirmarExclusao() {
 
 <template>
   <section>
-    <h1 class="text-2xl font-medium">Assistente IA</h1>
+    <h1 class="titulo-pagina">Assistente IA</h1>
     <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
       Tire dúvidas sobre esta disciplina. O assistente usa o plano de ensino, o conteúdo e os
       eventos da turma, mas não lê o texto dos PDFs.

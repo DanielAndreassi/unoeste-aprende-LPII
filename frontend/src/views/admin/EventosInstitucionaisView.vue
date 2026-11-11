@@ -82,7 +82,7 @@ onMounted(carregar);
 <template>
   <section>
     <div class="flex flex-wrap items-center justify-between gap-2">
-      <h1 class="text-2xl font-medium">Eventos institucionais</h1>
+      <h1 class="titulo-pagina">Eventos institucionais</h1>
       <button type="button" class="btn-primario" @click="novo">Novo evento</button>
     </div>
     <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">

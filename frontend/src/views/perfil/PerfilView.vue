@@ -53,7 +53,7 @@ const classeMsg = (m) =>
 
 <template>
   <main class="mx-auto max-w-3xl px-4 py-8">
-    <h1 class="text-2xl font-medium">Meu perfil</h1>
+    <h1 class="titulo-pagina">Meu perfil</h1>
 
     <form
       class="mt-6 grid gap-6 rounded-xl border bg-white p-6 shadow-sm sm:grid-cols-[192px_1fr] dark:bg-gray-900"

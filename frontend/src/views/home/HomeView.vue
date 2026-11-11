@@ -86,7 +86,7 @@ watch(semestre, (novo, antigo) => antigo && carregarTurmas());
 <template>
   <main class="mx-auto max-w-7xl px-4 py-6">
     <div class="flex flex-wrap items-end justify-between gap-4">
-      <h1 class="text-2xl font-medium">Minhas disciplinas</h1>
+      <h1 class="titulo-pagina">Minhas disciplinas</h1>
       <div v-if="semestres.length > 1" class="w-full sm:w-40">
         <CampoSelect v-model="semestre" label="Semestre" :opcoes="opcoesSemestre" />
       </div>

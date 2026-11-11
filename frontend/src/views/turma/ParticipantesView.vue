@@ -15,7 +15,7 @@ participantes(useRoute().params.id)
 
 <template>
   <section>
-    <h1 class="text-2xl font-medium">Participantes</h1>
+    <h1 class="titulo-pagina">Participantes</h1>
     <p v-if="erro" role="alert" class="mt-4 text-sm text-red-700 dark:text-red-400">{{ erro }}</p>
     <p v-else-if="alunos && !alunos.length" class="mt-4 text-sm text-gray-600 dark:text-gray-400">
       Nenhum aluno matriculado.
