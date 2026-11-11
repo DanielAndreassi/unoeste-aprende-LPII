@@ -166,7 +166,7 @@ const dataCurta = (iso) =>
         }}
       </p>
 
-      <table v-else-if="tabela.avaliacoes.length" class="w-full min-w-max text-sm">
+      <table v-else-if="tabela.avaliacoes.length" class="w-full min-w-max text-sm tabular-nums">
         <thead>
           <tr class="border-b border-gray-200 text-left dark:border-gray-700">
             <th scope="col" class="py-2 pr-4 font-medium">Aluno</th>

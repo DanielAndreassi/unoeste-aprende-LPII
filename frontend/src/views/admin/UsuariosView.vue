@@ -128,7 +128,7 @@ onMounted(carregar);
           </td>
           <td class="px-4 py-3 text-gray-600 dark:text-gray-400">{{ u.email }}</td>
           <td class="px-4 py-3">
-            <span :class="['rounded-full px-2.5 py-0.5 text-xs font-medium', SELOS[u.role]]">{{
+            <span :class="['rounded-full px-2 py-0.5 text-xs font-medium', SELOS[u.role]]">{{
               PAPEIS[u.role]
             }}</span>
           </td>

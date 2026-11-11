@@ -70,13 +70,13 @@
     @apply space-y-3 leading-relaxed;
   }
   .markdown h1 {
-    @apply text-2xl font-bold;
+    @apply text-2xl font-medium;
   }
   .markdown h2 {
-    @apply text-xl font-semibold;
+    @apply text-xl font-medium;
   }
   .markdown h3 {
-    @apply text-lg font-semibold;
+    @apply text-lg font-medium;
   }
   .markdown ul {
     @apply list-disc pl-6;

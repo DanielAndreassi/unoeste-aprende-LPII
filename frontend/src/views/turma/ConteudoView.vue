@@ -172,7 +172,7 @@ async function marcar(material, concluido) {
         class="mt-2 h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800"
       >
         <div
-          class="h-full rounded-full bg-primary-700 transition-all"
+          class="h-full rounded-full bg-primary-700 transition-[width] duration-300"
           :style="{ width: `${percentual}%` }"
         />
       </div>

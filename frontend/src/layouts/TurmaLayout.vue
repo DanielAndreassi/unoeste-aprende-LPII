@@ -19,7 +19,7 @@ const itens = [
   ['Professores', 'professores'],
   ['Participantes', 'participantes'],
   ['Calendário', 'calendario'],
-  ['Plano de Ensino', 'plano'],
+  ['Plano de ensino', 'plano'],
   ['Notas', 'notas'],
   ['Assistente IA', 'assistente'],
 ];
@@ -56,7 +56,7 @@ const itens = [
             <RouterLink
               :to="`/turmas/${route.params.id}/${caminho}`"
               class="block rounded-lg px-3 py-2 text-sm hover:bg-primary-50 dark:hover:bg-gray-800"
-              exact-active-class="bg-primary-100 font-semibold text-primary-900 dark:bg-gray-800 dark:text-primary-300"
+              exact-active-class="bg-primary-100 font-medium text-primary-900 dark:bg-gray-800 dark:text-primary-300"
             >
               {{ rotulo }}
             </RouterLink>

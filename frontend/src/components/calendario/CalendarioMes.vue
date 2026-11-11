@@ -205,7 +205,7 @@ function navegarTeclado(ev) {
           :aria-current="k === hoje ? 'date' : undefined"
           :class="[
             'flex h-8 w-8 items-center justify-center self-center rounded-full text-sm tabular-nums @2xl:self-start',
-            k === hoje && 'bg-primary-800 font-semibold text-white dark:bg-primary-600',
+            k === hoje && 'bg-primary-800 font-medium text-white dark:bg-primary-600',
             k === diaSel && k !== hoje && 'ring-2 ring-primary-600',
           ]"
           @click="abrirDia(k)"

@@ -66,7 +66,9 @@ onMounted(async () => {
           class="block h-full rounded-xl border bg-white p-5 shadow-sm transition-colors hover:border-primary-700 dark:bg-gray-900 dark:hover:border-primary-400"
         >
           <span class="text-sm font-medium text-gray-600 dark:text-gray-400">{{ a.rotulo }}</span>
-          <span class="mt-2 block text-3xl font-medium">{{ contagens[i] ?? '…' }}</span>
+          <span class="mt-2 block text-3xl font-medium tabular-nums">{{
+            contagens[i] ?? '…'
+          }}</span>
           <span class="mt-1 block text-sm text-gray-500 dark:text-gray-400">{{ a.descricao }}</span>
         </RouterLink>
       </li>

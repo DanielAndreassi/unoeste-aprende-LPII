@@ -15,7 +15,7 @@ const erro = ref('');
 
 const atalhos = [
   ['Conteúdo', 'conteudo'],
-  ['Plano de Ensino', 'plano'],
+  ['Plano de ensino', 'plano'],
   ['Notas', 'notas'],
   ['Assistente IA', 'assistente'],
 ];

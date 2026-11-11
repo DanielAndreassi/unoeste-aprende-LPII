@@ -164,7 +164,7 @@ async function confirmarExclusao() {
               :class="[
                 'w-full truncate rounded-lg px-3 py-2 text-left text-sm hover:bg-primary-50 dark:hover:bg-gray-800',
                 atual?._id === c._id &&
-                  'bg-primary-100 font-semibold text-primary-900 dark:bg-gray-800 dark:text-primary-300',
+                  'bg-primary-100 font-medium text-primary-900 dark:bg-gray-800 dark:text-primary-300',
               ]"
               @click="abrir(c)"
             >
