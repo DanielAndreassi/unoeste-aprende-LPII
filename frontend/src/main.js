@@ -14,5 +14,9 @@ app.use(router);
 // Sessão salva: revalida o token e atualiza o usuário (o interceptor trata o 401)
 const auth = useAuthStore();
 if (auth.logado)
-  router.isReady().then(() => me().then(auth.atualizarUsuario).catch(() => {}));
+  router.isReady().then(() =>
+    me()
+      .then(auth.atualizarUsuario)
+      .catch(() => {}),
+  );
 app.mount('#app');

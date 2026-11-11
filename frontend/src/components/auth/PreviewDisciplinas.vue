@@ -37,14 +37,20 @@ const eventos = [
       </div>
 
       <div class="mt-4 grid grid-cols-3 gap-4">
-        <div v-for="d in disciplinas" :key="d.nome" class="rounded-xl border bg-white p-4 dark:bg-gray-900">
+        <div
+          v-for="d in disciplinas"
+          :key="d.nome"
+          class="rounded-xl border bg-white p-4 dark:bg-gray-900"
+        >
           <p class="text-xs text-gray-500 dark:text-gray-400">{{ d.curso }}</p>
           <p class="mt-1 h-10 text-sm font-medium leading-5">{{ d.nome }}</p>
           <div class="mt-4 flex items-center gap-3">
             <div class="h-1 flex-1 rounded-full bg-gray-200 dark:bg-gray-800">
               <div class="h-1 rounded-full bg-primary-700" :style="{ width: `${d.progresso}%` }" />
             </div>
-            <span class="text-xs tabular-nums text-gray-500 dark:text-gray-400">{{ d.progresso }}%</span>
+            <span class="text-xs tabular-nums text-gray-500 dark:text-gray-400"
+              >{{ d.progresso }}%</span
+            >
           </div>
         </div>
       </div>

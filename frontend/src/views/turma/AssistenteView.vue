@@ -22,6 +22,15 @@ const pendente = ref(''); // pergunta enviada, ainda sem resposta
 const enviando = ref(false);
 const erro = ref('');
 const fim = ref(null);
+const campo = ref(null);
+const restantes = ref(null); // perguntas que sobram hoje; desconhecido até o primeiro envio
+const mostrarLista = ref(false); // no celular a lista de conversas fica recolhida
+
+const SUGESTOES = [
+  'Quais são os objetivos da disciplina?',
+  'Como será a avaliação?',
+  'Quais são os próximos eventos?',
+];
 
 const modalExcluir = ref(false);
 const excluindo = ref(false);
@@ -42,6 +51,7 @@ async function abrir(c) {
   erro.value = '';
   try {
     atual.value = await obterConversa(c._id);
+    mostrarLista.value = false;
     rolar();
   } catch (err) {
     erro.value = mensagemErro(err);
@@ -61,26 +71,36 @@ async function enviar() {
   pendente.value = pergunta;
   rolar();
   try {
-    const conversa = atual.value ?? (await criarConversa(turmaId));
-    atual.value = await enviarMensagem(conversa._id, pergunta);
+    // atual já aponta para a conversa criada: se o envio falhar, a nova tentativa reaproveita
+    atual.value ??= await criarConversa(turmaId);
+    const { restantes: sobram, ...conversa } = await enviarMensagem(atual.value._id, pergunta);
+    atual.value = conversa;
+    restantes.value = sobram;
     texto.value = '';
     carregarLista();
   } catch (err) {
     // o texto digitado fica no campo para tentar de novo
     erro.value = mensagemErro(err);
+    if (err.response?.status === 429) restantes.value = 0;
   } finally {
     pendente.value = '';
     enviando.value = false;
     rolar();
+    nextTick(() => campo.value?.focus());
   }
 }
 
 // Enter envia; Shift+Enter quebra a linha
 function teclar(e) {
-  if (e.key === 'Enter' && !e.shiftKey) {
+  if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) {
     e.preventDefault();
     enviar();
   }
+}
+
+function sugerir(pergunta) {
+  texto.value = pergunta;
+  campo.value?.focus();
 }
 
 async function confirmarExclusao() {
@@ -107,13 +127,39 @@ async function confirmarExclusao() {
       eventos da turma, mas não lê o texto dos PDFs.
     </p>
 
-    <div class="mt-6 grid gap-4 lg:grid-cols-[16rem_1fr]">
+    <div class="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-[16rem_1fr]">
       <aside class="rounded-2xl bg-white p-3 shadow-sm dark:bg-gray-900">
-        <button type="button" class="btn-primario w-full" @click="nova">Nova conversa</button>
-        <ul class="mt-3 max-h-64 space-y-1 overflow-y-auto lg:max-h-[28rem]">
+        <button
+          type="button"
+          class="btn-primario w-full"
+          :disabled="enviando"
+          @click="
+            nova();
+            mostrarLista = false;
+          "
+        >
+          Nova conversa
+        </button>
+        <button
+          type="button"
+          class="mt-2 w-full rounded-lg px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 lg:hidden dark:text-gray-300 dark:hover:bg-gray-800"
+          :aria-expanded="mostrarLista"
+          aria-controls="lista-conversas"
+          @click="mostrarLista = !mostrarLista"
+        >
+          Conversas anteriores ({{ conversas.length }})
+        </button>
+        <ul
+          id="lista-conversas"
+          :class="[
+            'mt-3 max-h-64 space-y-1 overflow-y-auto lg:block lg:max-h-[28rem]',
+            !mostrarLista && 'hidden',
+          ]"
+        >
           <li v-for="c in conversas" :key="c._id">
             <button
               type="button"
+              :disabled="enviando"
               :aria-current="atual?._id === c._id"
               :class="[
                 'w-full truncate rounded-lg px-3 py-2 text-left text-sm hover:bg-primary-50 dark:hover:bg-gray-800',
@@ -126,23 +172,39 @@ async function confirmarExclusao() {
             </button>
           </li>
         </ul>
-        <p v-if="!conversas.length" class="mt-3 text-sm text-gray-600 dark:text-gray-400">
+        <p
+          v-if="!conversas.length"
+          class="mt-3 hidden text-sm text-gray-600 lg:block dark:text-gray-400"
+        >
           Nenhuma conversa ainda.
         </p>
       </aside>
 
       <div class="flex min-h-[28rem] flex-col rounded-2xl bg-white p-4 shadow-sm dark:bg-gray-900">
-        <div v-if="atual" class="mb-2 flex justify-end">
-          <BotaoSecundario perigo @click="modalExcluir = true">Excluir conversa</BotaoSecundario>
+        <div v-if="atual" class="mb-2 flex items-center justify-between gap-3">
+          <h2 class="truncate text-sm font-medium">{{ atual.titulo }}</h2>
+          <BotaoSecundario perigo :disabled="enviando" @click="modalExcluir = true">
+            Excluir conversa
+          </BotaoSecundario>
         </div>
 
         <div class="flex-1 space-y-3 overflow-y-auto" aria-live="polite" :aria-busy="enviando">
-          <p
-            v-if="!atual?.mensagens.length && !pendente"
-            class="text-sm text-gray-600 dark:text-gray-400"
-          >
-            Faça sua primeira pergunta abaixo.
-          </p>
+          <div v-if="!atual?.mensagens.length && !pendente">
+            <p class="text-sm text-gray-600 dark:text-gray-400">
+              Faça sua primeira pergunta abaixo ou comece por uma sugestão:
+            </p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <button
+                v-for="s in SUGESTOES"
+                :key="s"
+                type="button"
+                class="rounded-full border border-gray-300 px-3 py-1.5 text-sm hover:bg-primary-50 dark:border-gray-700 dark:hover:bg-gray-800"
+                @click="sugerir(s)"
+              >
+                {{ s }}
+              </button>
+            </div>
+          </div>
           <div
             v-for="(m, i) in atual?.mensagens ?? []"
             :key="i"
@@ -177,10 +239,14 @@ async function confirmarExclusao() {
           {{ erro }}
         </p>
 
-        <form class="mt-3 flex items-end gap-2" @submit.prevent="enviar">
+        <p v-if="restantes === 0" class="mt-3 text-sm text-gray-600 dark:text-gray-400">
+          Você usou as 30 perguntas de hoje. Volte amanhã.
+        </p>
+        <form v-else class="mt-3 flex items-end gap-2" @submit.prevent="enviar">
           <label for="pergunta" class="sr-only">Sua pergunta</label>
           <textarea
             id="pergunta"
+            ref="campo"
             v-model="texto"
             rows="2"
             maxlength="2000"
@@ -192,6 +258,9 @@ async function confirmarExclusao() {
             Enviar
           </button>
         </form>
+        <p v-if="restantes > 0" class="mt-1 text-xs text-gray-600 dark:text-gray-400">
+          {{ restantes }} {{ restantes === 1 ? 'pergunta restante' : 'perguntas restantes' }} hoje
+        </p>
       </div>
     </div>
 

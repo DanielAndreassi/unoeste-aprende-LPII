@@ -2,6 +2,7 @@ import createError from 'http-errors';
 import Evento from '../models/Evento.js';
 import Turma from '../models/Turma.js';
 import Matricula from '../models/Matricula.js';
+import Notificacao from '../models/Notificacao.js';
 import '../models/Disciplina.js'; // registra o schema usado no populate
 
 const CAMPOS = ['titulo', 'tipo', 'link', 'inicio', 'fim'];
@@ -78,7 +79,11 @@ export async function listarDaTurma(req, res) {
 
 export async function criar(req, res) {
   const evento = await Evento.create({ ...camposDo(req.body), turma: req.turma._id });
-  // TODO(notificações — membro A, 13/11): avisar os alunos da turma; Notificacao ainda não tem notificarTurma().
+  await Notificacao.notificarTurma(req.turma, {
+    tipo: 'evento',
+    mensagem: `Novo evento: ${evento.titulo}`,
+    pagina: 'calendario',
+  });
   res.status(201).json(evento);
 }
 

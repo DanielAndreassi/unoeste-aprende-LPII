@@ -55,7 +55,9 @@ const visivel = ref(false);
             <path d="M9.9 10a3 3 0 0 0 4.1 4.1" />
           </template>
           <template v-else>
-            <path d="M2.4 12C3.5 10.2 7 6 12 6s8.5 4.2 9.6 6c-1.1 1.8-4.6 6-9.6 6S3.5 13.8 2.4 12z" />
+            <path
+              d="M2.4 12C3.5 10.2 7 6 12 6s8.5 4.2 9.6 6c-1.1 1.8-4.6 6-9.6 6S3.5 13.8 2.4 12z"
+            />
             <circle cx="12" cy="12" r="3" />
           </template>
         </svg>

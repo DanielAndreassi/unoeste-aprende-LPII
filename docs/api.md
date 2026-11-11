@@ -31,10 +31,10 @@ Roteiro de requisições: [backend/requests/auth.http](../backend/requests/auth.
 
 ## Turma do usuário
 
-| Método | Rota                           | Acesso                                                                                                                                                                                                   |
-| ------ | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| GET    | /minhas-turmas?semestre=2/2026 | auth → `{ semestre, semestres, cursos: [{ curso, turmas: [{ _id, codigo, semestre, disciplina, rotulo, progresso (aluno) \| totalAlunos (prof/adm) }] }] }`; sem `semestre` usa o atual; 400 se inválido |
-| GET    | /turmas/:id/participantes      | membro (prof recebe também o % de cada aluno)                                                                                                                                                            |
+| Método | Rota                           | Acesso                                                                                                                                                                                                                      |
+| ------ | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GET    | /minhas-turmas?semestre=2/2026 | auth → `{ semestre, semestres, cursos: [{ curso, turmas: [{ _id, codigo, semestre, disciplina, rotulo, progresso, concluidos, total (aluno) \| totalAlunos (prof/adm) }] }] }`; sem `semestre` usa o atual; 400 se inválido |
+| GET    | /turmas/:id/participantes      | membro (prof recebe também o % de cada aluno)                                                                                                                                                                               |
 
 ## Conteúdo — membro B
 
@@ -75,13 +75,19 @@ Roteiro de requisições: [backend/requests/auth.http](../backend/requests/auth.
 
 ## Notificações — membro A
 
-| GET | /notificacoes · PATCH /notificacoes/:id/lida · PATCH /notificacoes/lidas · DELETE /notificacoes/:id | auth (só as próprias) |
-| --- | --------------------------------------------------------------------------------------------------- | --------------------- |
+Criadas pelo backend (novo material, novo evento de turma, nota lançada ou alterada) só para alunos ativos matriculados; evento institucional não notifica. Rotas do próprio usuário (de outro → 404).
+
+| Método | Rota                   | Resposta                                                                                                              |
+| ------ | ---------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| GET    | /notificacoes          | `{ itens: [{ _id, tipo: material\|evento\|nota, mensagem, link, lida, createdAt }], naoLidas }` — as 50 mais recentes |
+| PATCH  | /notificacoes/:id/lida | notificação atualizada                                                                                                |
+| PATCH  | /notificacoes/lidas    | 204 (marca todas)                                                                                                     |
+| DELETE | /notificacoes/:id      | 204                                                                                                                   |
 
 ## Assistente IA — membro B
 
-| Método     | Rota                                                  | Acesso                  |
-| ---------- | ----------------------------------------------------- | ----------------------- |
-| GET/POST   | /turmas/:id/conversas                                 | membro (só as próprias) |
-| GET/DELETE | /conversas/:id                                        | dono                    |
-| POST       | /conversas/:id/mensagens `{ texto }` → resposta da IA | dono (429 após 30/dia)  |
+| Método     | Rota                                                                                                                                                                                                   | Acesso                  |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- |
+| GET/POST   | /turmas/:id/conversas                                                                                                                                                                                  | membro (só as próprias) |
+| GET/DELETE | /conversas/:id                                                                                                                                                                                         | dono                    |
+| POST       | /conversas/:id/mensagens `{ texto }` → a conversa inteira + `restantes` (perguntas que sobram hoje, de 30). 429 após 30/dia; 503 se o Gemini estiver sem cota ou fora do ar (a pergunta não é gravada) | dono                    |

@@ -33,7 +33,13 @@ const routes = [
     path: '/',
     component: () => import('../layouts/AppLayout.vue'),
     children: [
-      { path: '', name: 'home', component: () => import('../views/home/HomeView.vue') },
+      {
+        path: '',
+        name: 'home',
+        // o admin não tem disciplinas: a home dele é o painel
+        beforeEnter: () => (useAuthStore().role === 'admin' ? { name: 'admin' } : true),
+        component: () => import('../views/home/HomeView.vue'),
+      },
       { path: 'perfil', name: 'perfil', component: () => import('../views/perfil/PerfilView.vue') },
       {
         path: 'calendario',
