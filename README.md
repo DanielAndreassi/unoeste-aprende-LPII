@@ -15,7 +15,7 @@ Senha de todos: `Senha123`
 | E-mail | Perfil |
 |---|---|
 | admin@aprender.local | Admin |
-| prof1@aprender.local | Professor |
-| aluno1@aprender.local, aluno2@aprender.local | Aluno |
+| prof1@aprender.local, prof2@aprender.local, prof3@aprender.local | Professor |
+| aluno1@aprender.local … aluno8@aprender.local | Aluno |
 
 Regras do projeto: [AGENTS.md](AGENTS.md).
